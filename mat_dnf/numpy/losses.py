@@ -163,7 +163,7 @@ def pred_classi[T: NBitBase, U: NBitBase](
     """
     xp = cp.get_array_module(d_k, v_k_th, c)
     xV_k = d_k @ (1 - xp.minimum(c @ xp.vstack([1 - i1, i1]), 1))
-    i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
+    i2_k_learned = (xV_k >= v_k_th)
     return i2_k_learned
 
 def acc_classi[T: NBitBase, U: NBitBase](
@@ -188,7 +188,7 @@ def acc_classi[T: NBitBase, U: NBitBase](
     """
     xp = cp.get_array_module(d_k, v_k_th, i2_k, c)
     i2_k_learned = pred_classi(d_k, v_k_th, i1, l2, c)
-    return 1.0 - xp.abs(i2_k - i2_k_learned).sum() / l2
+    return 1.0 - xp.abs(i2_k - i2_k_learned.astype(i2_k.dtype)).sum() / l2
 
 def pred_dnf(
     dnf: NDArray[integer],
