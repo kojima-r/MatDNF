@@ -122,15 +122,13 @@ def logi_equiv(
 
 def pred_classi(
     d_k: Float[Array, "h"],
-    v_k_th: Float[Array, ""],
     i1: Int[Array, "n l"],
     l2: int,
     c: Float[Array, "h 2*n"],
 ) -> Float[Array, ""]:
     """Some kind of metric for the learned I2."""
     xV_k = d_k @ (1 - jnp.minimum(c @ jnp.vstack([1 - i1, i1]), 1))
-    i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
-    return i2_k_learned
+    return xV_k
     
 def acc_classi(
     d_k: Float[Array, "h"],
@@ -141,7 +139,8 @@ def acc_classi(
     c: Float[Array, "h 2*n"],
 ) -> Float[Array, ""]:
     """Some kind of metric for the learned I2."""
-    i2_k_learned = pred_classi(d_k, v_k_th, i1, l2, c)
+    xV_k = pred_classi(d_k, i1, l2, c)
+    i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
     return 1.0 - jnp.abs(i2_k - i2_k_learned).sum() / l2
 
 
