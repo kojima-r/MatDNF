@@ -144,6 +144,28 @@ def logi_equiv[T: NBitBase](
     return True, None
 
 
+def pred_classi[T: NBitBase, U: NBitBase](
+    d_k: NDArray[floating[T]],
+    v_k_th: NDArray[floating[T]],
+    i1: NDArray[integer[U]],
+    l2: int,
+    c: NDArray[floating[T]],
+) -> floating[T]:
+    """prediction by soft DNF for the learned DNF.
+    where y_pred is computed by continual weighted clauses
+    
+    Args:
+        d_k: D-part of learned DNF (continuous space). # (h,) 
+        v_k_th: threshold scalar value
+        i1: i_in inputs
+        l2: =L(#interpretation)
+        c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
+    """
+    xp = cp.get_array_module(d_k, v_k_th, i2_k, c)
+    xV_k = d_k @ (1 - xp.minimum(c @ xp.vstack([1 - i1, i1]), 1))
+    i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
+    return i2_k_learned
+
 def acc_classi[T: NBitBase, U: NBitBase](
     d_k: NDArray[floating[T]],
     v_k_th: NDArray[floating[T]],
@@ -164,12 +186,29 @@ def acc_classi[T: NBitBase, U: NBitBase](
         l2: =L(#interpretation)
         c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
     """
-    xp = cp.get_array_module(d_k, v_k_th, i2_k, c)
-    xV_k = d_k @ (1 - xp.minimum(c @ xp.vstack([1 - i1, i1]), 1))
-    i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
+    
+    i2_k_learned = pred_classi(d_k, v_k_th, i1, l2, c)
     return 1.0 - xp.abs(i2_k - i2_k_learned).sum() / l2
 
-
+def pred_dnf(
+    dnf: NDArray[integer],
+    i1: NDArray[integer],
+    l2: int,
+) -> floating:
+    """prediction by the learned DNF
+    where y_pred is computed by discretized clauses
+    
+    Args:
+        dnf: #clause x (2x#variables)
+        i1: (i_in) 0-1 matrix (N,L) with N: #variables
+        l2: =L(#interpretation)
+    """
+    xp = cp.get_array_module(dnf, i1, i2_k)
+    # TODO: This block pattern is repeated many times -> utils.py
+    xx = (dnf @ xp.vstack([i1, 1 - i1])) == dnf.sum(axis=1)[:, None]
+    I2_k_learned_b = xx.sum(axis=0) >= 1
+    return I2_k_learned_b
+    
 def acc_dnf(
     dnf: NDArray[integer],
     i1: NDArray[integer],
@@ -186,9 +225,6 @@ def acc_dnf(
         i2_k: (i_out) 0-1 row vector (L,) representing target truth values corresponding to i_in with L: #interpretation.  
         l2: =L(#interpretation)
     """
-    xp = cp.get_array_module(dnf, i1, i2_k)
-    # TODO: This block pattern is repeated many times -> utils.py
-    xx = (dnf @ xp.vstack([i1, 1 - i1])) == dnf.sum(axis=1)[:, None]
-    I2_k_learned_b = xx.sum(axis=0) >= 1
+    I2_k_learned_b = pred_dnf(dnf, i1, l2)
     zz = i2_k - I2_k_learned_b
     return 1.0 - xp.abs(zz).sum() / l2
