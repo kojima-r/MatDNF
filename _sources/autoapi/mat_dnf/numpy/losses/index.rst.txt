@@ -92,13 +92,12 @@ Module Contents
    :rtype: bool
 
 
-.. py:function:: pred_classi(d_k, v_k_th, i1, l2, c)
+.. py:function:: pred_classi(d_k, i1, l2, c)
 
    prediction by soft DNF for the learned DNF.
    where y_pred is computed by continual weighted clauses
 
    :param d_k: D-part of learned DNF (continuous space). # (h,)
-   :param v_k_th: threshold scalar value
    :param i1: i_in inputs
    :param l2: =L(#interpretation)
    :param c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
