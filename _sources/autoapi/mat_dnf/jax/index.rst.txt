@@ -1,0 +1,17 @@
+mat_dnf.jax
+===========
+
+.. py:module:: mat_dnf.jax
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/mat_dnf/jax/losses/index
+   /autoapi/mat_dnf/jax/models/index
+   /autoapi/mat_dnf/jax/optimizers/index
+
+

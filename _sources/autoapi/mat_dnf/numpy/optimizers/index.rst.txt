@@ -1,0 +1,98 @@
+mat_dnf.numpy.optimizers
+========================
+
+.. py:module:: mat_dnf.numpy.optimizers
+
+.. autoapi-nested-parse::
+
+   Optimizers for updating model parameters.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mat_dnf.numpy.optimizers.Optimizer
+   mat_dnf.numpy.optimizers.Adam
+
+
+Module Contents
+---------------
+
+.. py:class:: Optimizer
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Generic optimizer.
+
+
+   .. py:method:: update(x, ja_x)
+      :abstractmethod:
+
+
+      Update x given gradient ja_x.
+
+
+
+.. py:class:: Adam(alpha = 0.1, beta_1 = 0.9, beta_2 = 0.999, epsilon = 1e-08, xp = np)
+
+   Bases: :py:obj:`Optimizer`
+
+
+   Adam optimizer.
+
+
+   .. py:attribute:: alpha
+      :value: 0.1
+
+
+
+   .. py:attribute:: beta_1
+      :value: 0.9
+
+
+
+   .. py:attribute:: beta_2
+      :value: 0.999
+
+
+
+   .. py:attribute:: epsilon
+      :value: 1e-08
+
+
+
+   .. py:attribute:: t
+      :value: 1
+
+
+
+   .. py:attribute:: m
+      :type:  numpy.typing.NDArray[numpy.floating] | None
+      :value: None
+
+
+
+   .. py:attribute:: v
+      :type:  numpy.typing.NDArray[numpy.floating] | None
+      :value: None
+
+
+
+   .. py:attribute:: m_hat
+      :type:  numpy.typing.NDArray[numpy.floating]
+
+
+   .. py:attribute:: v_hat
+      :type:  numpy.typing.NDArray[numpy.floating]
+
+
+   .. py:method:: update(x, ja_x)
+
+      Update x given gradient ja_x.
+
+
+

@@ -1,0 +1,174 @@
+mat_dnf.numpy.models
+====================
+
+.. py:module:: mat_dnf.numpy.models
+
+.. autoapi-nested-parse::
+
+   Core Mat_DNF algorithm.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   mat_dnf.numpy.models.RNGDType
+   mat_dnf.numpy.models.LOSS_THRESHOLD
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mat_dnf.numpy.models.MatDNF
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mat_dnf.numpy.models.j_loss
+   mat_dnf.numpy.models.grad_j_loss
+   mat_dnf.numpy.models.train_mat_dnf
+
+
+Module Contents
+---------------
+
+.. py:data:: RNGDType
+
+.. py:class:: MatDNF(c, d_k, aa = 4)
+
+   MatDNF neural network.
+
+
+   .. py:attribute:: _c
+
+
+   .. py:attribute:: _d_k
+
+
+   .. py:attribute:: aa
+      :value: 4
+
+
+
+   .. py:property:: c
+      :type: numpy.typing.NDArray[numpy.floating[T]]
+
+
+      C array.
+
+
+   .. py:property:: d_k
+      :type: numpy.typing.NDArray[numpy.floating[T]]
+
+
+      D_k array.
+
+
+   .. py:method:: create_random(h, n, aa = 4, dtype = 'float64', xp = np, *, rng)
+      :classmethod:
+
+
+      Create a MatDNF NN with random C and D_k of the specified shape.
+
+      :param h: Maximum number of conjunctions in a DNF.
+      :param n: Number of variables.
+      :param aa: Scaling factor for the random initialization.
+      :param dtype: DType of MatDNF arrays.
+      :param xp: Array module. CuPy or NumPy.
+      :param rng: A NumPy or CuPy random number generator.
+
+
+
+   .. py:method:: __call__(i_in_d)
+
+      Compute v_k.
+
+      Also returns auxiliary arrays to avoid repeated computation.
+
+
+
+   .. py:method:: perturbate(rng)
+
+      Equation (5).
+
+
+
+.. py:function:: j_loss(model, i_in_d, i_out, l2 = 0.1)
+
+   The J cost function (Equation 3).
+
+   Also returns auxiliary arrays to avoid repeated computation.
+
+
+.. py:function:: grad_j_loss(model, i_in_d, i_out, v_k, N, M, Y, Z, l2 = 0.1)
+
+   Gradient of J cost function.
+
+
+.. py:data:: LOSS_THRESHOLD
+   :value: 10
+
+
+   Loss threshold for switching the number of bins in approximation_error.
+
+.. py:function:: train_mat_dnf(model, i_in, i_out, er_max, alpha, max_itr, max_try, extra_itr = 0, fold = 0, mode = 'dnf', use_sam = False, use_perturbation = True, *, rng)
+
+   Mat_DNF training loop.
+
+   Mat_DNF learns a DNF or classifier that maps i_in as closely as possible to i_out and
+   returns a DNF formula "learned_DNF" or classifier (c, d) with v_k_th
+   from which the predicted output i_out_learned for i_in is computed.
+
+   :param model: MatDNF model to be trained.
+   :param i_in: (n, l) 0-1 matrix of l data points in n variables to be classified.
+   :param i_out: (l,) 0-1 row vector representing target truth values corresponding to i_in.
+   :param er_max: Maximum acceptable approximation error.
+   :param alpha: Learning rate.
+   :param max_itr: Maximum number of iterations.
+   :param max_try: Maximum number of trials to learn a DNF, each with perturbation.
+   :param extra_itr: Number of over-iterations.
+   :param fold: Index for trial number.
+   :param mode: Choose "dnf" or "classifier" mode.
+   :param use_sam: Use Sharpness-Aware-Minimization.
+   :param use_perturbation: Use perturbation.
+   :param rng: NumPy random number generator.
+
+   :returns: Learned MatDNF model.
+             v_k_th: Threshold for classification such that
+                 I2_k_learned = (V_k>=V_k_th) where V_k = D_k*(1-min_1(C*[1-I1;I1]))  in {0,1}
+             learned_dnf: (h', 2n) 0-1 matrix (h'=<h) representing a DNF that approximately gives I2_k when evaluated by I1
+                 I2_k_learned = ([1..1](1-min_1(learned_DNF*[1-I1;I1])))>=1  in {0,1}
+   :rtype: model
+
+   About "dnf" and "classifier" modes:
+
+   - DNF:
+       We learn a DNF=(C:conjunctions,D_k:disjuntion) from (I1,I2_k) by first minimizing J2:
+
+           J2 = (I2_k <> 1-min_1(V_k)) + (1-I2_k <> max_0(V_k)) + (l2/2)*|| C.*(1-C) ||^2 + (l2/2)*|| D.*(1-D) ||^2 => O(n*l)+O(h*2n)
+
+           N = C*[1-I1;I1]     (h x 2n)*(2n x l) = (h x l): continuous #false literal in h1 conjunctinons by I1 => O(h*2n*l)
+           M = 1-min_1(N)      (h x l): continuous truth values of h conjunctions by I1 => O(h*l)
+           V_k = D_k*M         (1 x h)*(h x l) = (1 x l): continuous truth values of DNF=(C,D_k) by I1:(n x l) => O(1*h*l)
+
+       and then thresholding (C,D_k) to leaned_DNF giving a miminum classification error Er_k_th = |I2_k-I2_k_learned| where
+
+           V_k = sum(1-min_1(leaned_DNF*[1-I1;I1]),1)
+           I2_k_learned = (V_k>=1)
+               where learned_DNF is a matrix [C1;..;Cm] representing an m-conjunction DNF = C1 v..v Cm
+
+   - Classifier:
+       We learn a classifier (C,D_k) from (I1,I2_k) by minimizing J2 while computing threshold V_k_th
+       giving miminum classification error Er_k = |I2_k-I2_k_learned| where
+
+           V_k = D_k*(1-min(C*[1-I1;I1],1))
+           I2_k_learned = (V_k>=V_k_th)
+
+

@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>mat_dnf.jax.losses &#8212; mat-dnf 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/mat_dnf/jax/losses/index';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="mat_dnf.jax.models" href="../models/index.html" />
+    <link rel="prev" title="mat_dnf.jax" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mat-dnf 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../../index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../index.html">mat_dnf</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../index.html">mat_dnf.jax</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">mat_dnf.jax.losses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models/index.html">mat_dnf.jax.models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../optimizers/index.html">mat_dnf.jax.optimizers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../numpy/index.html">mat_dnf.numpy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../numpy/losses/index.html">mat_dnf.numpy.losses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../numpy/models/index.html">mat_dnf.numpy.models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../numpy/optimizers/index.html">mat_dnf.numpy.optimizers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../simplifications/index.html">mat_dnf.simplifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils/index.html">mat_dnf.utils</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">API Reference</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">mat_dnf</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">mat_dnf.jax</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">mat_dnf.jax.losses</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-mat_dnf.jax.losses">
+<span id="mat-dnf-jax-losses"></span><h1>mat_dnf.jax.losses<a class="headerlink" href="#module-mat_dnf.jax.losses" title="Link to this heading">#</a></h1>
+<p>Losses and error metrics.</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.classification_error" title="mat_dnf.jax.losses.classification_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">classification_error</span></code></a>(i_out, v_k[, split_v_k])</p></td>
+<td><p>Compute minimum classification error  Er_k=|I2-(V_k&gt;=V_k_th)|.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.approximation_error" title="mat_dnf.jax.losses.approximation_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">approximation_error</span></code></a>(c, d_k, d_i_in, i_out[, split_c, ...])</p></td>
+<td><p>Compute minimum approximation error Er_k_th by {D_k_th, C_th}.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.logi_conseq" title="mat_dnf.jax.losses.logi_conseq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_conseq</span></code></a>(dnf, i_out, i_in)</p></td>
+<td><p>Logical consequence.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.logi_equiv" title="mat_dnf.jax.losses.logi_equiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_equiv</span></code></a>(dnf, i_out, i_in)</p></td>
+<td><p>Logical equivalence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.acc_classi" title="mat_dnf.jax.losses.acc_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_classi</span></code></a>(d_k, v_k_th, i1, i2_k, l2, c)</p></td>
+<td><p>Some kind of metric for the learned I2.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.acc_dnf" title="mat_dnf.jax.losses.acc_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_dnf</span></code></a>(dnf, i1, i2_k, l2)</p></td>
+<td><p>Some kind of metric for the learned DNF.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.classification_error">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">classification_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_v_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.classification_error" title="Link to this definition">#</a></dt>
+<dd><p>Compute minimum classification error  Er_k=|I2-(V_k&gt;=V_k_th)|.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i_out</strong> – 0-1 row vector representing target truth values corresponding to i_in.</p></li>
+<li><p><strong>v_k</strong> – Number of satisfied disjuncts.</p></li>
+<li><p><strong>split_v_k</strong> – Number of threshold bins for disjunction V_k = D_k*M.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Minimum error by predicted I2_k(= V_k &gt;= V_k_th).
+v_k_th: Thresholded v_k value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>er_k</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.approximation_error">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">approximation_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_i_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_d_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.approximation_error" title="Link to this definition">#</a></dt>
+<dd><p>Compute minimum approximation error Er_k_th by {D_k_th, C_th}.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c</strong> – C-part of learned DNF (continuous space).</p></li>
+<li><p><strong>d_k</strong> – D-part of learned DNF (continuous space).</p></li>
+<li><p><strong>d_i_in</strong> – Dualized matrix of l data points in n variables to be classified.</p></li>
+<li><p><strong>i_out</strong> – 0-1 row vector representing target truth values corresponding to i_in.</p></li>
+<li><p><strong>split_c</strong> – Number of threshold bins for h conjunctions C.</p></li>
+<li><p><strong>split_d_k</strong> – Number of threshold bins for disjunction D_k.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The minimum approximation error.
+c_th: (h x 2n) 0-1 Mat for conjunction.
+d_k_th: (1 x h) 0-1 Mat for disjunction.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>er_k_th</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.logi_conseq">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">logi_conseq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_in</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.logi_conseq" title="Link to this definition">#</a></dt>
+<dd><p>Logical consequence.</p>
+<p>I_in(n x l): l=2^n complete assignments over n variables
+I_out(1 x l): truth values of the original DNF against I_in
+=&gt; (I_in I_out) = complete spec. of Boolean func., DNF</p>
+<p>If i_in_true <a href="#id1"><span class="problematic" id="id2">|</span></a>= dnf, conseq = 1.
+O.w. conseq = 0 and couner_example = I_in_counter</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.logi_equiv">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">logi_equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_in</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.logi_equiv" title="Link to this definition">#</a></dt>
+<dd><p>Logical equivalence.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.acc_classi">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">acc_classi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_k_th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i2_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.acc_classi" title="Link to this definition">#</a></dt>
+<dd><p>Some kind of metric for the learned I2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.acc_dnf">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">acc_dnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i2_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.acc_dnf" title="Link to this definition">#</a></dt>
+<dd><p>Some kind of metric for the learned DNF.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">mat_dnf.jax</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../models/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">mat_dnf.jax.models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.classification_error"><code class="docutils literal notranslate"><span class="pre">classification_error()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.approximation_error"><code class="docutils literal notranslate"><span class="pre">approximation_error()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.logi_conseq"><code class="docutils literal notranslate"><span class="pre">logi_conseq()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.logi_equiv"><code class="docutils literal notranslate"><span class="pre">logi_equiv()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.acc_classi"><code class="docutils literal notranslate"><span class="pre">acc_classi()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.acc_dnf"><code class="docutils literal notranslate"><span class="pre">acc_dnf()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/autoapi/mat_dnf/jax/losses/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, N/A.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

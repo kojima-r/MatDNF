@@ -1,0 +1,161 @@
+mat_dnf.utils
+=============
+
+.. py:module:: mat_dnf.utils
+
+.. autoapi-nested-parse::
+
+   Random problem generations, log prints, etc.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mat_dnf.utils.MeanLogger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mat_dnf.utils.eval_dnf
+   mat_dnf.utils.all_bit_seq
+   mat_dnf.utils.gen_dnf
+   mat_dnf.utils.n_parity_function
+   mat_dnf.utils.random_function
+   mat_dnf.utils.random_dnf
+   mat_dnf.utils.read_nth_dnf
+   mat_dnf.utils.should_break
+
+
+Module Contents
+---------------
+
+.. py:class:: MeanLogger(dr, l)
+
+   Averages MatDNF runs, following implementation in `readme_for_test.m`.
+
+
+   .. py:attribute:: _dr
+
+
+   .. py:attribute:: _l
+
+
+   .. py:attribute:: _arr_test_size
+      :type:  list[int]
+      :value: []
+
+
+
+   .. py:attribute:: _arr_time
+      :type:  list[float]
+      :value: []
+
+
+
+   .. py:attribute:: _arr_acc_classi
+      :type:  list[float]
+      :value: []
+
+
+
+   .. py:attribute:: _arr_acc_dnf
+      :type:  list[float]
+      :value: []
+
+
+
+   .. py:attribute:: _arr_conseq
+      :type:  list[bool]
+      :value: []
+
+
+
+   .. py:attribute:: _arr_equiv
+      :type:  list[bool]
+      :value: []
+
+
+
+   .. py:method:: append(test_size, time, acc_classi, acc_dnf, conseq, equiv)
+
+      Append to internal lists.
+
+
+
+   .. py:method:: __str__()
+
+      String representation, matching `readme_for_tst.m`.
+
+
+
+.. py:function:: eval_dnf(d, c, i_in)
+
+   Evaluate DNF by I_in.
+
+   % D(1 x h),C(h x 2n): binary {0,1}
+   % I_in(n x l): l assignments over n variables
+   % I_out(1 x l): truth values of (D,C) by I_in
+
+
+.. py:function:: all_bit_seq(n, dtype)
+                 all_bit_seq(n: int) -> numpy.typing.NDArray[numpy.int64]
+
+   Vectors of all possible bit strings of length n.
+
+
+.. py:function:: gen_dnf(n, h_gen, d_size, c_max, rng, dtype)
+                 gen_dnf(n: int, h_gen: int, d_size: int, c_max: int, rng: numpy.random.Generator) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
+
+   Generate a random DNF formula F.
+
+   F in {a1...an} = (rand_D(1 x h_gen),rand_C(h_gen x 2n)).
+   with d_size disjuncts where each disjunct contains at most c_max literals
+   a half of which is negative on average
+
+   REQUIRED: n >= c_max, h_gen >= d_size
+   [D C] = gen_DNF(n,h_gen=10,d_size=10,c_max=5); x = C(find(D),:); simp_DNF(x)
+   [D C] = gen_DNF(n,h_gen=10,d_size=3,c_max=5); x = C(find(D),:); simp_DNF(x)
+
+   :param n: Number of variables.
+   :param h_gen: Most number of disjuncts?
+   :param d_size: Number of disjuncts.
+   :param c_max: Maximum number of literals in each disjuncts.
+   :param rng: Random number generator.
+   :param dtype: Desired dtype of the generated D and C matrices.
+
+
+.. py:function:: n_parity_function(rng, n, add_noise, dtype)
+                 n_parity_function(rng: numpy.random.Generator, n: int, add_noise: bool) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
+
+   Create N-parity function.
+
+
+.. py:function:: random_function(rng, n, add_noise, dtype)
+                 random_function(rng: numpy.random.Generator, n: int, add_noise: bool) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
+
+   Create random function.
+
+
+.. py:function:: random_dnf(rng, n, h_gen, d_size, c_max, add_noise, dtype)
+                 random_dnf(rng: numpy.random.Generator, n: int, h_gen: int, d_size: int, c_max: int, add_noise: bool) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
+
+   Create random DNF.
+
+
+.. py:function:: read_nth_dnf(fname, i, delimiter, dtype)
+                 read_nth_dnf(fname: str | pathlib.Path, i: int, delimiter: str) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
+
+   Read nth DNF from a CSV.
+
+
+.. py:function:: should_break(mode, f, er_k, er_k_th, er_max, extra_itr, c_extra_itr)
+
+   Terminating condition for MatDNF training loop.
+
+

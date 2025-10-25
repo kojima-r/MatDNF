@@ -1,0 +1,18 @@
+mat_dnf
+=======
+
+.. py:module:: mat_dnf
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/mat_dnf/jax/index
+   /autoapi/mat_dnf/numpy/index
+   /autoapi/mat_dnf/simplifications/index
+   /autoapi/mat_dnf/utils/index
+
+

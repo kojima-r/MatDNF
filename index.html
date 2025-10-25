@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>mat-dnf User Guide &#8212; mat-dnf 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="autoapi/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mat-dnf 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="autoapi/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="autoapi/index.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="mat-dnf-user-guide">
+<h1><code class="docutils literal notranslate"><span class="pre">mat-dnf</span></code> User Guide<a class="headerlink" href="#mat-dnf-user-guide" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/mat_dnf/index.html">mat_dnf</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>A Python implementation of Mat_DNF, an explainable neural network
+for learning Boolean Networks (BNs) by minimizing a logically inspired,
+non-negative cost function to zero.
+Mat_DNF represents Boolean functions in disjunctive normal form (DNFs),
+encoding them as pairs of binary matrices and learning them using a single-layer neural network.
+This structure ensures that every parameter in the network has a clear
+interpretation as a conjunction or literal in the learned DNF.</p>
+<p>This package provides three different implementations of Mat_DNF:</p>
+<ul class="simple">
+<li><p><strong>NumPy</strong></p>
+<ul>
+<li><p>Provided in <a class="reference internal" href="autoapi/mat_dnf/numpy/index.html#module-mat_dnf.numpy" title="mat_dnf.numpy"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mat_dnf.numpy</span></code></a>.</p></li>
+<li><p>Runs on CPU with low overhead, suitable for small-scale problems.</p></li>
+</ul>
+</li>
+<li><p><strong>CuPy</strong></p>
+<ul>
+<li><p>Also provided in <a class="reference internal" href="autoapi/mat_dnf/numpy/index.html#module-mat_dnf.numpy" title="mat_dnf.numpy"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mat_dnf.numpy</span></code></a>, but is automatically selected when CuPy arrays are used.</p></li>
+<li><p>Leverages GPU acceleration, which is beneficial for large-scale problems, but incurs memory transfer overhead.</p></li>
+<li><p>Identical in usage to NumPy implementation.</p></li>
+</ul>
+</li>
+<li><p><strong>JAX</strong>
+- Provided in <a class="reference internal" href="autoapi/mat_dnf/jax/index.html#module-mat_dnf.jax" title="mat_dnf.jax"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mat_dnf.jax</span></code></a>, with nearly identical usage except for differences in RNG handling.</p>
+<ul>
+<li><p>Supports multi-GPU (see JAX’s <a class="reference external" href="https://docs.jax.dev/en/latest/sharded-computation.html">sharded computation</a> and <a class="reference external" href="https://docs.jax.dev/en/latest/multi_process.html">multi-host environment</a>)</p></li>
+</ul>
+</li>
+</ul>
+<p>and TPU execution (e.g. in Google Colab).</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Uses graph-mode automatic differentiation with optional JIT compilation, allowing low-overhead and flexible modifications to the network and cost function.</p></li>
+<li><p>Incurs additional compilation overhead (typically &lt;1s), which may be significant for small problems.</p></li>
+</ul>
+</div></blockquote>
+<p>All implementations have been tested to produce numerically identical results (within a small tolerance)
+to the original MATLAB/Octave implementation (see unit tests in <code class="file docutils literal notranslate"><span class="pre">./tests</span></code>). In general:</p>
+<ul class="simple">
+<li><p>For small problems: NumPy &gt; CuPy &gt; JAX(CPU) &gt; JAX(GPU)</p></li>
+<li><p>For large problems: JAX(GPU) &gt; CuPy &gt;&gt; JAX(CPU) &gt; NumPy</p></li>
+</ul>
+<p>See example usage in <code class="file docutils literal notranslate"><span class="pre">./notebooks/readme_for_test</span></code>.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span><span class="o">[</span>-e<span class="o">]</span><span class="w"> </span>.
+</pre></div>
+</div>
+<p>Requires Python 3.12+</p>
+<p>Depending on the system configuration, different binary wheels may be required for
+both <a class="reference external" href="https://cupy.dev/">CuPy</a> (GPU-accelerated NumPy and SciPy) and <a class="reference external" href="https://docs.jax.dev/en/latest/index.html">JAX</a>
+(array library with automatic differentiation and JIT compilation).
+These dependencies should be managed through the project’s <code class="file docutils literal notranslate"><span class="pre">pyproject.toml</span></code>
+using a package manager to automatically resolve potential conflicts.</p>
+<p>This package was developed with <a class="reference external" href="https://docs.astral.sh/uv/">uv</a> package manager.
+In <code class="docutils literal notranslate"><span class="pre">uv</span></code>, you can add a dependency by running:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>uv<span class="w"> </span>add<span class="w"> </span><span class="o">[</span>package_name<span class="o">]</span>
+</pre></div>
+</div>
+<p>To remove a dependency, use:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>uv<span class="w"> </span>remove<span class="w"> </span><span class="o">[</span>package_name<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="benchmarks-etc">
+<h2>Benchmarks, etc.<a class="headerlink" href="#benchmarks-etc" title="Link to this heading">#</a></h2>
+<section id="computer-specification">
+<h3>Computer Specification<a class="headerlink" href="#computer-specification" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>CPU: AMD Ryzen 9 7950X (16-Core)</p></li>
+<li><p>GPU: NVIDIA RTX 4090 (24GB VRAM)</p></li>
+<li><p>RAM: 128GB</p></li>
+</ul>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>All implementations, including NumPy and Octave, distribute computations across
+multiple CPU cores by default, as indicated by their CPU usage in <code class="docutils literal notranslate"><span class="pre">top</span></code>.</p></li>
+<li><p>Package versions:</p>
+<ul>
+<li><p>GNU Octave 6.4.0</p></li>
+<li><p>NumPy 2.2.1</p></li>
+<li><p>CuPy 13.3.0</p></li>
+<li><p>JAX 0.5.0</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="initial-implementation-bottleneck">
+<h3>Initial implementation bottleneck<a class="headerlink" href="#initial-implementation-bottleneck" title="Link to this heading">#</a></h3>
+<p>A direct one-to-one translation from MATLAB/Octave to Python reveals that
+<code class="docutils literal notranslate"><span class="pre">approximation_error()</span></code> is the primary bottleneck:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/profile.svg"><img alt="Flamegraph generated from ``profiling.py``" src="_images/profile.svg" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">py-spy</span></code> flamegraph generated from <code class="docutils literal notranslate"><span class="pre">`profiling.py</span></code></span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/profile_02.svg"><img alt="Flamegraph generated from ``profiling02.py``" src="_images/profile_02.svg" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">py-spy</span></code> flamegraph generated from <code class="docutils literal notranslate"><span class="pre">`profiling_02.py</span></code></span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>To improve efficiency, the latest implementation of <code class="docutils literal notranslate"><span class="pre">approximation_error()</span></code> and <code class="docutils literal notranslate"><span class="pre">classification_error()</span></code>
+vectorizes the inner loop using NumPy broadcasting.
+However, since vectorization trades off memory usage for speed,
+memory constraints may become a limiting factor in large-scale problems.
+If you encounter memory issues, you can switch to a more memory-efficient implementation
+by modifying <code class="file docutils literal notranslate"><span class="pre">losses.py</span></code>.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">approximation_error()</span></code>, change lines 62-66, from</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Current vectorized implementation in `losses.py` (line  62-66)</span>
+<span class="n">d_mat</span> <span class="o">=</span> <span class="n">d_k</span> <span class="o">&gt;=</span> <span class="n">ls_d_k</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1"># split_d_k x h</span>
+<span class="n">c_mat</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="n">ls_c</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1"># split_c x h x 2n</span>
+<span class="n">b_mat</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_mat</span> <span class="o">@</span> <span class="n">d_i_in</span><span class="p">)</span> <span class="o">==</span> <span class="n">c_mat</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># split_c x h x l</span>
+<span class="n">e_mat</span> <span class="o">=</span> <span class="n">d_mat</span> <span class="o">@</span> <span class="n">b_mat</span>  <span class="c1"># split_c x split_d_k x l</span>
+<span class="n">error_cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">i_out</span> <span class="o">-</span> <span class="n">e_mat</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Alternative implementation: more memory-efficient but slower</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">split_d_k</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d_k</span> <span class="o">&gt;=</span> <span class="n">ls_d_k</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>  <span class="c1"># 1 x h</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">split_c</span><span class="p">):</span>
+        <span class="n">_c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="n">ls_c</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>  <span class="c1"># h x 2n</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">_c</span> <span class="o">@</span> <span class="n">d_i_in</span><span class="p">)</span> <span class="o">==</span> <span class="n">_c</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># h x l</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>  <span class="c1"># 1 x l</span>
+        <span class="n">error_cd</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">i_out</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">classification</span> <span class="pre">error()</span></code>, change lines 28-29, from</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Current vectorized implementation in `losses.py` (line  28-29)</span>
+<span class="n">d_mat</span> <span class="o">=</span> <span class="n">v_k</span> <span class="o">&gt;=</span> <span class="n">ls_v_k</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>  <span class="c1"># (split_v_k, l)</span>
+<span class="n">error_v_k</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">i_out</span> <span class="o">-</span> <span class="n">d_mat</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># (split_v_k,)</span>
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Alternative implementation: more memory-efficient but slower</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">split_v_k</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">v_k</span> <span class="o">&gt;=</span> <span class="n">ls_v_k</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>  <span class="c1"># 1 x l</span>
+    <span class="n">error_v_k</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">i_out</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Both implementations have been tested for correctness but have not been validated with JAX.
+Since JAX generally requires more careful handling of control flow, refer
+to the <a class="reference external" href="https://docs.jax.dev/en/latest/control-flow.html#control-flow">JAX Control Flow Guide</a> for further details.</p>
+</section>
+<section id="run-time-comparison">
+<h3>Run Time Comparison<a class="headerlink" href="#run-time-comparison" title="Link to this heading">#</a></h3>
+<p>Using MATLAB/Octave arrays generated with the default settings from <code class="docutils literal notranslate"><span class="pre">readme_for_test.m</span></code>:</p>
+<ul class="simple">
+<li><p>Random DNF with no-noise</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">5</span></code>, <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">0.1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_try</span> <span class="pre">=</span> <span class="pre">20</span></code>, <code class="docutils literal notranslate"><span class="pre">max_itr</span> <span class="pre">=</span> <span class="pre">500</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">=</span> <span class="pre">1000</span></code>, <code class="docutils literal notranslate"><span class="pre">Er_max</span> <span class="pre">=</span> <span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dr</span> <span class="pre">=</span> <span class="pre">0.5</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i_max</span> <span class="pre">=</span> <span class="pre">10</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d_size</span> <span class="pre">=</span> <span class="pre">3</span></code>, <code class="docutils literal notranslate"><span class="pre">h_gen</span> <span class="pre">=</span> <span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">c_max</span> <span class="pre">=</span> <span class="pre">5</span></code></p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Run time comparison for different implementations of <code class="docutils literal notranslate"><span class="pre">approximation_error()`</span></code></span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 25.0%" />
+<col style="width: 55.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Implementation</p></th>
+<th class="head"><p>Time</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NumPy</p></td>
+<td><p>1.5 ms ± 20.5 μs</p></td>
+<td><p>Fully vectorized implementation</p></td>
+</tr>
+<tr class="row-odd"><td><p>CuPy</p></td>
+<td><p>1.04 ms ± 35.5 μs</p></td>
+<td><p>GPU-accelerated; includes memory transfer overhead</p></td>
+</tr>
+<tr class="row-even"><td><p>JAX (CPU)</p></td>
+<td><p>1.76 ms ± 7.93 μs</p></td>
+<td><p>Includes overhead from JIT compilation</p></td>
+</tr>
+<tr class="row-odd"><td><p>JAX (GPU)</p></td>
+<td><p>106 μs ± 6.38 μs</p></td>
+<td><p>Includes both memory transfer and JIT compilation overhead</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>See <code class="file docutils literal notranslate"><span class="pre">./notebooks/approximation_error.ipynb</span></code> for the data source of the table above.</p>
+</section>
+<section id="default-random-dnf-in-readme-for-test">
+<h3>Default Random DNF in <code class="docutils literal notranslate"><span class="pre">readme_for_test</span></code><a class="headerlink" href="#default-random-dnf-in-readme-for-test" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n=5</span></code>; <code class="docutils literal notranslate"><span class="pre">alpha=0.1</span></code>; <code class="docutils literal notranslate"><span class="pre">max_try=20</span></code>; <code class="docutils literal notranslate"><span class="pre">max_itr=500</span></code>; <code class="docutils literal notranslate"><span class="pre">h=1000</span></code>; <code class="docutils literal notranslate"><span class="pre">Er_max=0</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dr=0.5</span></code>; <code class="docutils literal notranslate"><span class="pre">i_max=10</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d_size=3</span></code>; <code class="docutils literal notranslate"><span class="pre">h_gen=10</span></code>; <code class="docutils literal notranslate"><span class="pre">c_max=5</span></code>;</p></li>
+</ul>
+<p>For this problem size, minimizing CPU overhead is more important.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Execution time for default random DNF in <code class="docutils literal notranslate"><span class="pre">readme_for_test</span></code></span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Implementation</p></th>
+<th class="head"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MATLAB/Octave</p></td>
+<td><p>0.020 ± 0.003 s</p></td>
+</tr>
+<tr class="row-odd"><td><p>NumPy</p></td>
+<td><p>0.008 ± 0.004 s</p></td>
+</tr>
+<tr class="row-even"><td><p>CuPy</p></td>
+<td><p>0.126 ± 0.267 s</p></td>
+</tr>
+<tr class="row-odd"><td><p>JAX (CPU)</p></td>
+<td><p>0.214 ± 0.105 s</p></td>
+</tr>
+<tr class="row-even"><td><p>JAX (GPU)</p></td>
+<td><p>0.590 ± 0.300 s</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="genome-wide-and-or-bns-for-budding-yeast-e-mtab01">
+<h3>Genome-wide AND/OR BNs for Budding Yeast (E_MTAB01)<a class="headerlink" href="#genome-wide-and-or-bns-for-budding-yeast-e-mtab01" title="Link to this heading">#</a></h3>
+<p><strong>NOTE</strong>: Either I implemented the CSV-reading function incorrectly,
+or I did not know how to set the learning parameters,
+but I failed to get the DNF learning running correctly for this problem.</p>
+<p>However, given the problem size (<span class="math notranslate nohighlight">\(I_1\)</span>: 10298 × 40, <span class="math notranslate nohighlight">\(I_2\)</span>: 40),
+I believe this example is still useful for demonstrating how GPU acceleration
+can be beneficial for larger matrices.
+Since the exit condition was never triggered, I set
+<code class="docutils literal notranslate"><span class="pre">i_max</span> <span class="pre">=</span> <span class="pre">4</span></code>, <code class="docutils literal notranslate"><span class="pre">max_try</span> <span class="pre">=</span> <span class="pre">4</span></code>, and <code class="docutils literal notranslate"><span class="pre">max_itr</span> <span class="pre">=</span> <span class="pre">50</span></code>, resulting in a <em>fixed</em> total of 800 iterations,
+with 200 iterations per <code class="docutils literal notranslate"><span class="pre">Mat_DNF()</span></code> / <code class="docutils literal notranslate"><span class="pre">train_mat_dnf()</span></code> invocation.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-text">Execution Time for Genome-wide AND/OR BNs (E_MTAB01)</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Implementation</p></th>
+<th class="head"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MATLAB / Octave</p></td>
+<td><p>741.655 ± 3.069 s</p></td>
+</tr>
+<tr class="row-odd"><td><p>NumPy</p></td>
+<td><p>382.977 ± 4.319 s</p></td>
+</tr>
+<tr class="row-even"><td><p>JAX (CPU)</p></td>
+<td><p>262.768 ± 0.460 s</p></td>
+</tr>
+<tr class="row-odd"><td><p>CuPy</p></td>
+<td><p>8.930 ± 0.406 s</p></td>
+</tr>
+<tr class="row-even"><td><p>JAX (GPU)</p></td>
+<td><p>3.127 ± 0.524 s</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The above table is based on results generated by these scripts:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="./notebooks/readme_for_test.ipynb">readme_for_test.ipynb</a></p></li>
+<li><p><a class="reference external" href="./matlab/test-generators/test_emtab.m">test_emtab.m</a></p></li>
+</ul>
+</section>
+</section>
+<section id="known-limitations">
+<h2>Known Limitations<a class="headerlink" href="#known-limitations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>DNF simplification is not implemented in JAX because it involves extensive slicing,
+and JAX slicing always creates a copy instead of an array view,
+making it noticeably slower than NumPy/CuPy in practice.
+Furthermore, dynamic slicing is not supported under JIT compilation,
+requiring significant code modifications.</p></li>
+<li><p>In some cases, the <code class="docutils literal notranslate"><span class="pre">c_th</span></code> and <code class="docutils literal notranslate"><span class="pre">d_k_th</span></code> matrices (thresholded <span class="math notranslate nohighlight">\(\tilde{C}\)</span> and <span class="math notranslate nohighlight">\(\tilde{D_k}\)</span>?)
+converge to all True / 1, causing the “remove ..A&amp;~A.. conjunction” step in
+DNF simplification to reduce the learned DNF to an empty DNF.
+I’m not sure whether this is a bug or intended behavior.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="autoapi/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmarks-etc">Benchmarks, etc.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-specification">Computer Specification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-implementation-bottleneck">Initial implementation bottleneck</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-time-comparison">Run Time Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-random-dnf-in-readme-for-test">Default Random DNF in <code class="docutils literal notranslate"><span class="pre">readme_for_test</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#genome-wide-and-or-bns-for-budding-yeast-e-mtab01">Genome-wide AND/OR BNs for Budding Yeast (E_MTAB01)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations">Known Limitations</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, N/A.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

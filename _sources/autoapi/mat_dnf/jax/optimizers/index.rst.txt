@@ -1,0 +1,74 @@
+mat_dnf.jax.optimizers
+======================
+
+.. py:module:: mat_dnf.jax.optimizers
+
+.. autoapi-nested-parse::
+
+   Optimizers for updating model parameters.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mat_dnf.jax.optimizers.AdamState
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mat_dnf.jax.optimizers.adam
+   mat_dnf.jax.optimizers.normalize_leaf
+
+
+Module Contents
+---------------
+
+.. py:class:: AdamState
+
+   Bases: :py:obj:`NamedTuple`
+
+
+   State for the MATLAB code's variant of Adam optimizer.
+
+
+   .. py:attribute:: t
+      :type:  jax.Array
+
+
+   .. py:attribute:: m
+      :type:  jaxtyping.PyTree
+
+
+   .. py:attribute:: v
+      :type:  jaxtyping.PyTree
+
+
+   .. py:attribute:: m_hat
+      :type:  jaxtyping.PyTree
+
+
+   .. py:attribute:: v_hat
+      :type:  jaxtyping.PyTree
+
+
+.. py:function:: adam(alpha = 0.1, beta_1 = 0.9, beta_2 = 0.999, epsilon = 1e-08)
+
+   A variant of Adam optimizer, as implemented in the MATLAB code.
+
+   A little different from the typical Adam with an additional "t" parameter.
+
+
+.. py:function:: normalize_leaf()
+
+   Normalize the gradient on per-leaf basis.
+
+   This is necessary to match MATLAB implementation,
+   which normalizes C and D_k separately.
+
+

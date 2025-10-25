@@ -1,0 +1,17 @@
+mat_dnf.numpy
+=============
+
+.. py:module:: mat_dnf.numpy
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/mat_dnf/numpy/losses/index
+   /autoapi/mat_dnf/numpy/models/index
+   /autoapi/mat_dnf/numpy/optimizers/index
+
+

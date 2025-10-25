@@ -1,0 +1,84 @@
+mat_dnf.numpy.losses
+====================
+
+.. py:module:: mat_dnf.numpy.losses
+
+.. autoapi-nested-parse::
+
+   Losses and error metrics.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mat_dnf.numpy.losses.classification_error
+   mat_dnf.numpy.losses.approximation_error
+   mat_dnf.numpy.losses.logi_conseq
+   mat_dnf.numpy.losses.logi_equiv
+   mat_dnf.numpy.losses.acc_classi
+   mat_dnf.numpy.losses.acc_dnf
+
+
+Module Contents
+---------------
+
+.. py:function:: classification_error(i_out, v_k, split_v_k = 20)
+
+   Compute minimum classification error  Er_k=|I2-(V_k>=V_k_th)|.
+
+   :param i_out: 0-1 row vector representing target truth values corresponding to i_in.
+   :param v_k: Number of satisfied disjuncts.
+   :param split_v_k: Number of threshold bins for disjunction V_k = D_k*M.
+
+   :returns: Minimum error by predicted I2_k(= V_k >= V_k_th).
+             v_k_th: Thresholded v_k value
+   :rtype: er_k
+
+
+.. py:function:: approximation_error(c, d_k, d_i_in, i_out, split_c = 10, split_d_k = 10)
+
+   Compute minimum approximation error Er_k_th by {D_k_th, C_th}.
+
+   :param c: C-part of learned DNF (continuous space).
+   :param d_k: D-part of learned DNF (continuous space).
+   :param d_i_in: Dualized matrix of l data points in n variables to be classified.
+   :param i_out: 0-1 row vector representing target truth values corresponding to i_in.
+   :param split_c: Number of threshold bins for h conjunctions C.
+   :param split_d_k: Number of threshold bins for disjunction D_k.
+
+   :returns: The minimum approximation error.
+             c_th: (h x 2n) 0-1 Mat for conjunction.
+             d_k_th: (1 x h) 0-1 Mat for disjunction.
+   :rtype: er_k_th
+
+
+.. py:function:: logi_conseq(dnf, i_out, i_in)
+
+   Logical consequence.
+
+   I_in(n x l): l=2^n complete assignments over n variables
+   I_out(1 x l): truth values of the original DNF against I_in
+   => (I_in I_out) = complete spec. of Boolean func., DNF
+
+   If i_in_true |= dnf, conseq = 1.
+   O.w. conseq = 0 and couner_example = I_in_counter
+
+
+.. py:function:: logi_equiv(dnf, i_out, i_in)
+
+   Logical equivalence.
+
+
+.. py:function:: acc_classi(d_k, v_k_th, i1, i2_k, l2, c)
+
+   Some kind of metric for the learned I2.
+
+
+.. py:function:: acc_dnf(dnf, i1, i2_k, l2)
+
+   Some kind of metric for the learned DNF.
+
+

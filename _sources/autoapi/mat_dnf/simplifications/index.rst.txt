@@ -1,0 +1,94 @@
+mat_dnf.simplifications
+=======================
+
+.. py:module:: mat_dnf.simplifications
+
+.. autoapi-nested-parse::
+
+   DNF simplifications.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mat_dnf.simplifications.simp_dnf
+   mat_dnf.simplifications.remove_a_not_a
+   mat_dnf.simplifications._unit_propagation
+   mat_dnf.simplifications._resolution
+   mat_dnf.simplifications._remove_empty_rows
+   mat_dnf.simplifications._subsumption
+
+
+Module Contents
+---------------
+
+.. py:function:: simp_dnf(dnf)
+
+   DNF simplification.
+
+   Logical case:
+
+   - ()v(a1 & a2)                           => true                  empty elimi.
+   - (..a3 & ~a3..)v(a1 & a2)               => (a1 & a2)             anti-tautology elimi.
+   - a1 v (~a1 & a2 & a4) v ...             => a1 v (a2 & a4) v ...  unit propa.
+   - (a1 & a2 & a4) v (~a1 & a2 & a4) v ... => (a2 & a4) v ...       resolution
+   - (a1 & a2 & a4) v (a2 & a4) v ...       => (a2 & a4) v ...       subsumption
+
+   Continuous case:
+
+   - V2_k = sum(1 - min_1(DNF*[1-V1;V1]))   : anti-tautology elimi. applicable
+   - I2_k_learned_DNF = (V2_k>=1)
+
+   :param dnf: DNF to be simplified.
+
+   :returns: Simplified DNF.
+
+
+.. py:function:: remove_a_not_a(dnf)
+
+   Remove ..A&~A.. conjunction.
+
+   :param dnf: DNF to be simplified.
+
+   :returns: Simplified DNF.
+
+
+.. py:function:: _unit_propagation(dnf)
+
+   DNF simplification by unit propagation.
+
+   :param dnf: DNF to be simplified.
+
+   :returns: Simplified DNF.
+
+
+.. py:function:: _resolution(dnf)
+
+   DNF simplification by resolution.
+
+   :param dnf: DNF to be simplified.
+
+   :returns: Simplified DNF.
+
+
+.. py:function:: _remove_empty_rows(dnf)
+
+   Remove [0..0] row as it behaves as a false disjunct in a DNF.
+
+   :param dnf: DNF to be simplified.
+
+   :returns: Simplified DNF.
+
+
+.. py:function:: _subsumption(dnf)
+
+   DNF simplification by subsumption.
+
+   :param dnf: DNF to be simplified.
+
+   :returns: Simplified DNF.
+
+
