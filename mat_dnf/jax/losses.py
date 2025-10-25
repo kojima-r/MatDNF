@@ -120,7 +120,18 @@ def logi_equiv(
         return False, i_in[:, i_out != yy]
     return True, None
 
-
+def pred_classi(
+    d_k: Float[Array, "h"],
+    v_k_th: Float[Array, ""],
+    i1: Int[Array, "n l"],
+    l2: int,
+    c: Float[Array, "h 2*n"],
+) -> Float[Array, ""]:
+    """Some kind of metric for the learned I2."""
+    xV_k = d_k @ (1 - jnp.minimum(c @ jnp.vstack([1 - i1, i1]), 1))
+    i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
+    return i2_k_learned
+    
 def acc_classi(
     d_k: Float[Array, "h"],
     v_k_th: Float[Array, ""],
@@ -130,10 +141,20 @@ def acc_classi(
     c: Float[Array, "h 2*n"],
 ) -> Float[Array, ""]:
     """Some kind of metric for the learned I2."""
-    xV_k = d_k @ (1 - jnp.minimum(c @ jnp.vstack([1 - i1, i1]), 1))
-    i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
+    i2_k_learned = pred_classi(d_k, v_k_th, i1, l2, c)
     return 1.0 - jnp.abs(i2_k - i2_k_learned).sum() / l2
 
+
+def pred_dnf(
+    dnf: Int[Array, "h 2*n"],
+    i1: Int[Array, "n l"],
+    l2: int,
+) -> Float[Array, ""]:
+    """Some kind of metric for the learned DNF."""
+    # TODO: This block pattern is repeated many times -> utils.py
+    xx = (dnf @ jnp.vstack([i1, 1 - i1])) == dnf.sum(axis=1)[:, None]
+    I2_k_learned_b = xx.sum(axis=0) >= 1
+    return I2_k_learned_b
 
 def acc_dnf(
     dnf: Int[Array, "h 2*n"],
@@ -143,7 +164,6 @@ def acc_dnf(
 ) -> Float[Array, ""]:
     """Some kind of metric for the learned DNF."""
     # TODO: This block pattern is repeated many times -> utils.py
-    xx = (dnf @ jnp.vstack([i1, 1 - i1])) == dnf.sum(axis=1)[:, None]
-    I2_k_learned_b = xx.sum(axis=0) >= 1
+    I2_k_learned_b = pred_dnf(dnf, i1, l2)
     zz = i2_k - I2_k_learned_b
     return 1.0 - jnp.abs(zz).sum() / l2
