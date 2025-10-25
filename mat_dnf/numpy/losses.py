@@ -146,7 +146,6 @@ def logi_equiv[T: NBitBase](
 
 def pred_classi[T: NBitBase, U: NBitBase](
     d_k: NDArray[floating[T]],
-    v_k_th: NDArray[floating[T]],
     i1: NDArray[integer[U]],
     l2: int,
     c: NDArray[floating[T]],
@@ -156,15 +155,13 @@ def pred_classi[T: NBitBase, U: NBitBase](
     
     Args:
         d_k: D-part of learned DNF (continuous space). # (h,) 
-        v_k_th: threshold scalar value
         i1: i_in inputs
         l2: =L(#interpretation)
         c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
     """
-    xp = cp.get_array_module(d_k, v_k_th, c)
+    xp = cp.get_array_module(d_k, c)
     xV_k = d_k @ (1 - xp.minimum(c @ xp.vstack([1 - i1, i1]), 1))
-    i2_k_learned = (xV_k >= v_k_th)
-    return i2_k_learned
+    return xV_k
 
 def acc_classi[T: NBitBase, U: NBitBase](
     d_k: NDArray[floating[T]],
@@ -187,7 +184,8 @@ def acc_classi[T: NBitBase, U: NBitBase](
         c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
     """
     xp = cp.get_array_module(d_k, v_k_th, i2_k, c)
-    i2_k_learned = pred_classi(d_k, v_k_th, i1, l2, c)
+    xV_k = pred_classi(d_k, i1, l2, c)
+    i2_k_learned = (xV_k >= v_k_th)
     return 1.0 - xp.abs(i2_k - i2_k_learned.astype(i2_k.dtype)).sum() / l2
 
 def pred_dnf(
