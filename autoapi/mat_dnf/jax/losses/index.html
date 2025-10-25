@@ -340,8 +340,14 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.logi_equiv" title="mat_dnf.jax.losses.logi_equiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_equiv</span></code></a>(dnf, i_out, i_in)</p></td>
 <td><p>Logical equivalence.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.acc_classi" title="mat_dnf.jax.losses.acc_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_classi</span></code></a>(d_k, v_k_th, i1, i2_k, l2, c)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.pred_classi" title="mat_dnf.jax.losses.pred_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pred_classi</span></code></a>(d_k, v_k_th, i1, l2, c)</p></td>
 <td><p>Some kind of metric for the learned I2.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.acc_classi" title="mat_dnf.jax.losses.acc_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_classi</span></code></a>(d_k, v_k_th, i1, i2_k, l2, c)</p></td>
+<td><p>Some kind of metric for the learned I2.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.pred_dnf" title="mat_dnf.jax.losses.pred_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pred_dnf</span></code></a>(dnf, i1, l2)</p></td>
+<td><p>Some kind of metric for the learned DNF.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.jax.losses.acc_dnf" title="mat_dnf.jax.losses.acc_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_dnf</span></code></a>(dnf, i1, i2_k, l2)</p></td>
 <td><p>Some kind of metric for the learned DNF.</p></td>
@@ -418,9 +424,21 @@ O.w. conseq = 0 and couner_example = I_in_counter</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.pred_classi">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">pred_classi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_k_th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.pred_classi" title="Link to this definition">#</a></dt>
+<dd><p>Some kind of metric for the learned I2.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.jax.losses.acc_classi">
 <span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">acc_classi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_k_th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i2_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.acc_classi" title="Link to this definition">#</a></dt>
 <dd><p>Some kind of metric for the learned I2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.jax.losses.pred_dnf">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.jax.losses.</span></span><span class="sig-name descname"><span class="pre">pred_dnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.jax.losses.pred_dnf" title="Link to this definition">#</a></dt>
+<dd><p>Some kind of metric for the learned DNF.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -485,7 +503,9 @@ O.w. conseq = 0 and couner_example = I_in_counter</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.approximation_error"><code class="docutils literal notranslate"><span class="pre">approximation_error()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.logi_conseq"><code class="docutils literal notranslate"><span class="pre">logi_conseq()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.logi_equiv"><code class="docutils literal notranslate"><span class="pre">logi_equiv()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.pred_classi"><code class="docutils literal notranslate"><span class="pre">pred_classi()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.acc_classi"><code class="docutils literal notranslate"><span class="pre">acc_classi()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.pred_dnf"><code class="docutils literal notranslate"><span class="pre">pred_dnf()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.jax.losses.acc_dnf"><code class="docutils literal notranslate"><span class="pre">acc_dnf()</span></code></a></li>
 </ul>
 </li>
