@@ -74,7 +74,7 @@ Module Contents
    Logical equivalence.
 
 
-.. py:function:: pred_classi(d_k, v_k_th, i1, l2, c)
+.. py:function:: pred_classi(d_k, i1, l2, c)
 
    Some kind of metric for the learned I2.
 
