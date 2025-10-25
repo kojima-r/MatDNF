@@ -4,14 +4,18 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "giprayogo", email = "prayogo.genki.imam@advancesoft.jp" }]
-requires-python = ">=3.12"
+
+requires-python = ">=3.10"
+
+# "cupy-cuda12x>=13.3.0"
+
+# "equinox>=0.11.11"
+# "jax[cuda12]>=0.5.0"
+# "jaxtyping>=0.2.37"
+# "optax>=0.2.4"
+
+# "numpy>=2.2.1",
 dependencies = [
-    "cupy-cuda12x>=13.3.0",
-    "equinox>=0.11.11",
-    "jax[cuda12]>=0.5.0",
-    "jaxtyping>=0.2.37",
-    "numpy>=2.2.1",
-    "optax>=0.2.4",
 ]
 
 [build-system]
