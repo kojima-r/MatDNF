@@ -18,7 +18,9 @@ Functions
    mat_dnf.numpy.losses.approximation_error
    mat_dnf.numpy.losses.logi_conseq
    mat_dnf.numpy.losses.logi_equiv
+   mat_dnf.numpy.losses.pred_classi
    mat_dnf.numpy.losses.acc_classi
+   mat_dnf.numpy.losses.pred_dnf
    mat_dnf.numpy.losses.acc_dnf
 
 
@@ -90,6 +92,18 @@ Module Contents
    :rtype: bool
 
 
+.. py:function:: pred_classi(d_k, v_k_th, i1, l2, c)
+
+   prediction by soft DNF for the learned DNF.
+   where y_pred is computed by continual weighted clauses
+
+   :param d_k: D-part of learned DNF (continuous space). # (h,)
+   :param v_k_th: threshold scalar value
+   :param i1: i_in inputs
+   :param l2: =L(#interpretation)
+   :param c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
+
+
 .. py:function:: acc_classi(d_k, v_k_th, i1, i2_k, l2, c)
 
    accuracy metric predicted by soft DNF for the learned DNF.
@@ -102,6 +116,16 @@ Module Contents
    :param i2_k: i_out outputs
    :param l2: =L(#interpretation)
    :param c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
+
+
+.. py:function:: pred_dnf(dnf, i1, l2)
+
+   prediction by the learned DNF
+   where y_pred is computed by discretized clauses
+
+   :param dnf: #clause x (2x#variables)
+   :param i1: (i_in) 0-1 matrix (N,L) with N: #variables
+   :param l2: =L(#interpretation)
 
 
 .. py:function:: acc_dnf(dnf, i1, i2_k, l2)
