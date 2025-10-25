@@ -42,8 +42,8 @@ Module Contents
 
    Compute minimum approximation error Er_k_th by {D_k_th, C_th}.
 
-   :param c: C-part of learned DNF (continuous space).
-   :param d_k: D-part of learned DNF (continuous space).
+   :param c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
+   :param d_k: D-part of learned DNF (continuous space). # (h,)
    :param d_i_in: Dualized matrix of l data points in n variables to be classified.
    :param i_out: 0-1 row vector representing target truth values corresponding to i_in.
    :param split_c: Number of threshold bins for h conjunctions C.
@@ -57,28 +57,62 @@ Module Contents
 
 .. py:function:: logi_conseq(dnf, i_out, i_in)
 
-   Logical consequence.
-
-   I_in(n x l): l=2^n complete assignments over n variables
-   I_out(1 x l): truth values of the original DNF against I_in
-   => (I_in I_out) = complete spec. of Boolean func., DNF
+   Logical consequence. |= phi_0 => phi
+   s.t.
+     phi:= dnf
+     phi_0:= (i_in, i_out)
 
    If i_in_true |= dnf, conseq = 1.
    O.w. conseq = 0 and couner_example = I_in_counter
 
+   :param dnf: #clause x (2x#variables)
+   :param i_out: 0-1 row vector (L,) representing target truth values corresponding to i_in with L: interpretation.
+   :param i_in: 0-1 matrix (N,L) with N: #variables
+
+   :returns: logical equivalence
+             profile: #variable x non-equivalent interpretations
+   :rtype: bool
+
 
 .. py:function:: logi_equiv(dnf, i_out, i_in)
 
-   Logical equivalence.
+   Logical equivalence. |= phi_0 <=> phi
+   s.t.
+     phi:= dnf
+     phi_0:= (i_in, i_out)
+
+   :param dnf: #clause x (2x#variables)
+   :param i_out: 0-1 row vector (L,) representing target truth values corresponding to i_in with L: interpretation.
+   :param i_in: 0-1 matrix (N,L) with N: #variables
+
+   :returns: logical equivalence
+             profile: #variable x non-equivalent interpretations
+   :rtype: bool
 
 
 .. py:function:: acc_classi(d_k, v_k_th, i1, i2_k, l2, c)
 
-   Some kind of metric for the learned I2.
+   accuracy metric predicted by soft DNF for the learned DNF.
+   1/L \sum 1_{y_pred=i2_k}
+   where y_pred is computed by continual weighted clauses
+
+   :param d_k: D-part of learned DNF (continuous space). # (h,)
+   :param v_k_th: threshold scalar value
+   :param i1: i_in inputs
+   :param i2_k: i_out outputs
+   :param l2: =L(#interpretation)
+   :param c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
 
 
 .. py:function:: acc_dnf(dnf, i1, i2_k, l2)
 
-   Some kind of metric for the learned DNF.
+   accuracy metric predicted by the learned DNF.
+   1/L \sum 1_{y_pred=i2_k}
+   where y_pred is computed by discretized clauses
+
+   :param dnf: #clause x (2x#variables)
+   :param i1: (i_in) 0-1 matrix (N,L) with N: #variables
+   :param i2_k: (i_out) 0-1 row vector (L,) representing target truth values corresponding to i_in with L: #interpretation.
+   :param l2: =L(#interpretation)
 
 

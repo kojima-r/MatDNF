@@ -335,16 +335,16 @@
 <td><p>Compute minimum approximation error Er_k_th by {D_k_th, C_th}.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.logi_conseq" title="mat_dnf.numpy.losses.logi_conseq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_conseq</span></code></a>(dnf, i_out, i_in)</p></td>
-<td><p>Logical consequence.</p></td>
+<td><p>Logical consequence. <a href="#id1"><span class="problematic" id="id2">|</span></a>= phi_0 =&gt; phi</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.logi_equiv" title="mat_dnf.numpy.losses.logi_equiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_equiv</span></code></a>(dnf, i_out, i_in)</p></td>
-<td><p>Logical equivalence.</p></td>
+<td><p>Logical equivalence. <a href="#id3"><span class="problematic" id="id4">|</span></a>= phi_0 &lt;=&gt; phi</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.acc_classi" title="mat_dnf.numpy.losses.acc_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_classi</span></code></a>(d_k, v_k_th, i1, i2_k, l2, c)</p></td>
-<td><p>Some kind of metric for the learned I2.</p></td>
+<td><p>accuracy metric predicted by soft DNF for the learned DNF.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.acc_dnf" title="mat_dnf.numpy.losses.acc_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_dnf</span></code></a>(dnf, i1, i2_k, l2)</p></td>
-<td><p>Some kind of metric for the learned DNF.</p></td>
+<td><p>accuracy metric predicted by the learned DNF.</p></td>
 </tr>
 </tbody>
 </table>
@@ -381,8 +381,8 @@ v_k_th: Thresholded v_k value</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>c</strong> – C-part of learned DNF (continuous space).</p></li>
-<li><p><strong>d_k</strong> – D-part of learned DNF (continuous space).</p></li>
+<li><p><strong>c</strong> – C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.</p></li>
+<li><p><strong>d_k</strong> – D-part of learned DNF (continuous space). # (h,)</p></li>
 <li><p><strong>d_i_in</strong> – Dualized matrix of l data points in n variables to be classified.</p></li>
 <li><p><strong>i_out</strong> – 0-1 row vector representing target truth values corresponding to i_in.</p></li>
 <li><p><strong>split_c</strong> – Number of threshold bins for h conjunctions C.</p></li>
@@ -403,30 +403,95 @@ d_k_th: (1 x h) 0-1 Mat for disjunction.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.numpy.losses.logi_conseq">
 <span class="sig-prename descclassname"><span class="pre">mat_dnf.numpy.losses.</span></span><span class="sig-name descname"><span class="pre">logi_conseq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_in</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.numpy.losses.logi_conseq" title="Link to this definition">#</a></dt>
-<dd><p>Logical consequence.</p>
-<p>I_in(n x l): l=2^n complete assignments over n variables
-I_out(1 x l): truth values of the original DNF against I_in
-=&gt; (I_in I_out) = complete spec. of Boolean func., DNF</p>
-<p>If i_in_true <a href="#id1"><span class="problematic" id="id2">|</span></a>= dnf, conseq = 1.
+<dd><p>Logical consequence. <a href="#id5"><span class="problematic" id="id6">|</span></a>= phi_0 =&gt; phi
+s.t.</p>
+<blockquote>
+<div><p>phi:= dnf
+phi_0:= (i_in, i_out)</p>
+</div></blockquote>
+<p>If i_in_true <a href="#id7"><span class="problematic" id="id8">|</span></a>= dnf, conseq = 1.
 O.w. conseq = 0 and couner_example = I_in_counter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dnf</strong> – #clause x (2x#variables)</p></li>
+<li><p><strong>i_out</strong> – 0-1 row vector (L,) representing target truth values corresponding to i_in with L: interpretation.</p></li>
+<li><p><strong>i_in</strong> – 0-1 matrix (N,L) with N: #variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>logical equivalence
+profile: #variable x non-equivalent interpretations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.numpy.losses.logi_equiv">
 <span class="sig-prename descclassname"><span class="pre">mat_dnf.numpy.losses.</span></span><span class="sig-name descname"><span class="pre">logi_equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_in</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.numpy.losses.logi_equiv" title="Link to this definition">#</a></dt>
-<dd><p>Logical equivalence.</p>
+<dd><p>Logical equivalence. <a href="#id9"><span class="problematic" id="id10">|</span></a>= phi_0 &lt;=&gt; phi
+s.t.</p>
+<blockquote>
+<div><p>phi:= dnf
+phi_0:= (i_in, i_out)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dnf</strong> – #clause x (2x#variables)</p></li>
+<li><p><strong>i_out</strong> – 0-1 row vector (L,) representing target truth values corresponding to i_in with L: interpretation.</p></li>
+<li><p><strong>i_in</strong> – 0-1 matrix (N,L) with N: #variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>logical equivalence
+profile: #variable x non-equivalent interpretations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.numpy.losses.acc_classi">
 <span class="sig-prename descclassname"><span class="pre">mat_dnf.numpy.losses.</span></span><span class="sig-name descname"><span class="pre">acc_classi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_k_th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i2_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.numpy.losses.acc_classi" title="Link to this definition">#</a></dt>
-<dd><p>Some kind of metric for the learned I2.</p>
+<dd><p>accuracy metric predicted by soft DNF for the learned DNF.
+1/L sum 1_{y_pred=i2_k}
+where y_pred is computed by continual weighted clauses</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d_k</strong> – D-part of learned DNF (continuous space). # (h,)</p></li>
+<li><p><strong>v_k_th</strong> – threshold scalar value</p></li>
+<li><p><strong>i1</strong> – i_in inputs</p></li>
+<li><p><strong>i2_k</strong> – i_out outputs</p></li>
+<li><p><strong>l2</strong> – =L(#interpretation)</p></li>
+<li><p><strong>c</strong> – C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.numpy.losses.acc_dnf">
 <span class="sig-prename descclassname"><span class="pre">mat_dnf.numpy.losses.</span></span><span class="sig-name descname"><span class="pre">acc_dnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i2_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.numpy.losses.acc_dnf" title="Link to this definition">#</a></dt>
-<dd><p>Some kind of metric for the learned DNF.</p>
+<dd><p>accuracy metric predicted by the learned DNF.
+1/L sum 1_{y_pred=i2_k}
+where y_pred is computed by discretized clauses</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dnf</strong> – #clause x (2x#variables)</p></li>
+<li><p><strong>i1</strong> – (i_in) 0-1 matrix (N,L) with N: #variables</p></li>
+<li><p><strong>i2_k</strong> – (i_out) 0-1 row vector (L,) representing target truth values corresponding to i_in with L: #interpretation.</p></li>
+<li><p><strong>l2</strong> – =L(#interpretation)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
