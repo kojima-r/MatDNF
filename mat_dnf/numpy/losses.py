@@ -41,10 +41,10 @@ def approximation_error[T: NBitBase, U: NBitBase](
     split_d_k: int = 10,
 ) -> tuple[integer[U], NDArray[integer[U]], NDArray[bool_]]:
     """Compute minimum approximation error Er_k_th by {D_k_th, C_th}.
-
+    
     Args:
-        c: C-part of learned DNF (continuous space).
-        d_k: D-part of learned DNF (continuous space).
+        c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
+        d_k: D-part of learned DNF (continuous space). # (h,) 
         d_i_in: Dualized matrix of l data points in n variables to be classified.
         i_out: 0-1 row vector representing target truth values corresponding to i_in.
         split_c: Number of threshold bins for h conjunctions C.
@@ -80,14 +80,23 @@ def logi_conseq[T: NBitBase](
     i_out: NDArray[integer[T]],
     i_in: NDArray[integer[T]],
 ) -> tuple[bool, NDArray[integer[T]] | None]:
-    """Logical consequence.
-
-    I_in(n x l): l=2^n complete assignments over n variables
-    I_out(1 x l): truth values of the original DNF against I_in
-    => (I_in I_out) = complete spec. of Boolean func., DNF
-
+    """Logical consequence. |= phi_0 => phi
+    s.t.
+      phi:= dnf
+      phi_0:= (i_in, i_out)
+    
     If i_in_true |= dnf, conseq = 1.
     O.w. conseq = 0 and couner_example = I_in_counter
+    
+    Args:
+        dnf: #clause x (2x#variables)
+        i_out: 0-1 row vector (L,) representing target truth values corresponding to i_in with L: interpretation.  
+        i_in: 0-1 matrix (N,L) with N: #variables
+
+    Returns:
+        bool: logical equivalence
+        profile: #variable x non-equivalent interpretations
+        
     """
     xp = cp.get_array_module(dnf, i_out, i_in)
     i_in_true = i_in[:, i_out.astype(bool_)]
@@ -108,9 +117,22 @@ def logi_conseq[T: NBitBase](
 def logi_equiv[T: NBitBase](
     dnf: NDArray[integer[T]],
     i_out: NDArray[integer[T]],
-    i_in: NDArray[integer[T]],
+    i_in: NDArray[integer[T]],  # 
 ) -> tuple[bool, NDArray[integer[T]] | None]:
-    """Logical equivalence."""
+    """Logical equivalence. |= phi_0 <=> phi
+    s.t.
+      phi:= dnf
+      phi_0:= (i_in, i_out)
+      
+    Args:
+        dnf: #clause x (2x#variables)
+        i_out: 0-1 row vector (L,) representing target truth values corresponding to i_in with L: interpretation.  
+        i_in: 0-1 matrix (N,L) with N: #variables
+
+    Returns:
+        bool: logical equivalence
+        profile: #variable x non-equivalent interpretations
+    """
     xp = cp.get_array_module(dnf, i_out, i_in)
     # TODO: Duplicate with `acc_dnf`
     xx = dnf @ xp.vstack([i_in, 1 - i_in]) == dnf.sum(axis=1, keepdims=True)
@@ -130,7 +152,18 @@ def acc_classi[T: NBitBase, U: NBitBase](
     l2: int,
     c: NDArray[floating[T]],
 ) -> floating[T]:
-    """Some kind of metric for the learned I2."""
+    """accuracy metric predicted by soft DNF for the learned DNF.
+    1/L \sum 1_{y_pred=i2_k} 
+    where y_pred is computed by continual weighted clauses
+    
+    Args:
+        d_k: D-part of learned DNF (continuous space). # (h,) 
+        v_k_th: threshold scalar value
+        i1: i_in inputs
+        i2_k: i_out outputs
+        l2: =L(#interpretation)
+        c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
+    """
     xp = cp.get_array_module(d_k, v_k_th, i2_k, c)
     xV_k = d_k @ (1 - xp.minimum(c @ xp.vstack([1 - i1, i1]), 1))
     i2_k_learned = (xV_k >= v_k_th).astype(i2_k.dtype)
@@ -143,7 +176,16 @@ def acc_dnf(
     i2_k: NDArray[integer],
     l2: int,
 ) -> floating:
-    """Some kind of metric for the learned DNF."""
+    """accuracy metric predicted by the learned DNF.
+    1/L \sum 1_{y_pred=i2_k} 
+    where y_pred is computed by discretized clauses
+    
+    Args:
+        dnf: #clause x (2x#variables)
+        i1: (i_in) 0-1 matrix (N,L) with N: #variables
+        i2_k: (i_out) 0-1 row vector (L,) representing target truth values corresponding to i_in with L: #interpretation.  
+        l2: =L(#interpretation)
+    """
     xp = cp.get_array_module(dnf, i1, i2_k)
     # TODO: This block pattern is repeated many times -> utils.py
     xx = (dnf @ xp.vstack([i1, 1 - i1])) == dnf.sum(axis=1)[:, None]
