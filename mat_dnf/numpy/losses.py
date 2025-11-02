@@ -4,6 +4,10 @@ import cupy as cp
 from numpy import bool_, floating, integer
 from numpy.typing import NBitBase, NDArray
 
+def stable_argmin(xp, a):
+    i1=len(a)-xp.argmin(a[::-1])
+    i2=xp.argmin(a)
+    return (i1+i2)//2
 
 # TODO: Update descriptions for v_k, i2_k, and v_k_th.
 def classification_error[T: NBitBase, U: NBitBase](
@@ -28,7 +32,7 @@ def classification_error[T: NBitBase, U: NBitBase](
     d_mat = v_k >= ls_v_k[:, None]  # (split_v_k, l)
     error_v_k = xp.abs(i_out - d_mat).sum(axis=-1)  # (split_v_k,)
 
-    y = xp.argmin(error_v_k)
+    y = stable_argmin(xp, error_v_k)
     return error_v_k[y], ls_v_k[y]
 
 
@@ -55,6 +59,8 @@ def approximation_error[T: NBitBase, U: NBitBase](
         c_th: (h x 2n) 0-1 Mat for conjunction.
         d_k_th: (1 x h) 0-1 Mat for disjunction.
     """
+    
+
     xp = cp.get_array_module(c, d_k, d_i_in, i_out)
     ls_c = xp.linspace(c.min(), c.max(), split_c, dtype=c.dtype)
     ls_d_k = xp.linspace(d_k.min(), d_k.max(), split_d_k, dtype=d_k.dtype)
@@ -66,7 +72,8 @@ def approximation_error[T: NBitBase, U: NBitBase](
     error_cd = xp.abs(i_out - e_mat).sum(axis=-1)
 
     # Get thresholds from error_cd
-    er_k_th_index = xp.argmin(error_cd)
+    #er_k_th_index = xp.argmin(error_cd)
+    er_k_th_index = stable_argmin(xp, error_cd.ravel())
     yw, w = xp.unravel_index(er_k_th_index, error_cd.shape)
     er_k_th = error_cd[yw, w]
     c_th = (c >= ls_c[yw]).astype(er_k_th.dtype)
@@ -172,7 +179,7 @@ def acc_classi[T: NBitBase, U: NBitBase](
     c: NDArray[floating[T]],
 ) -> floating[T]:
     """accuracy metric predicted by soft DNF for the learned DNF.
-    1/L \sum 1_{y_pred=i2_k} 
+    1/L sum 1_{y_pred=i2_k}
     where y_pred is computed by continual weighted clauses
     
     Args:
@@ -214,7 +221,7 @@ def acc_dnf(
     l2: int,
 ) -> floating:
     """accuracy metric predicted by the learned DNF.
-    1/L \sum 1_{y_pred=i2_k} 
+    1/L sum 1_{y_pred=i2_k}
     where y_pred is computed by discretized clauses
     
     Args:
