@@ -14,6 +14,7 @@ Functions
 
 .. autoapisummary::
 
+   mat_dnf.numpy.losses.stable_argmin
    mat_dnf.numpy.losses.classification_error
    mat_dnf.numpy.losses.approximation_error
    mat_dnf.numpy.losses.logi_conseq
@@ -26,6 +27,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:function:: stable_argmin(xp, a)
 
 .. py:function:: classification_error(i_out, v_k, split_v_k = 20)
 
@@ -106,7 +109,7 @@ Module Contents
 .. py:function:: acc_classi(d_k, v_k_th, i1, i2_k, l2, c)
 
    accuracy metric predicted by soft DNF for the learned DNF.
-   1/L \sum 1_{y_pred=i2_k}
+   1/L sum 1_{y_pred=i2_k}
    where y_pred is computed by continual weighted clauses
 
    :param d_k: D-part of learned DNF (continuous space). # (h,)
@@ -130,7 +133,7 @@ Module Contents
 .. py:function:: acc_dnf(dnf, i1, i2_k, l2)
 
    accuracy metric predicted by the learned DNF.
-   1/L \sum 1_{y_pred=i2_k}
+   1/L sum 1_{y_pred=i2_k}
    where y_pred is computed by discretized clauses
 
    :param dnf: #clause x (2x#variables)

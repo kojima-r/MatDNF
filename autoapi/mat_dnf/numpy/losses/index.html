@@ -328,28 +328,31 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.classification_error" title="mat_dnf.numpy.losses.classification_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">classification_error</span></code></a>(i_out, v_k[, split_v_k])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.stable_argmin" title="mat_dnf.numpy.losses.stable_argmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stable_argmin</span></code></a>(xp, a)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.classification_error" title="mat_dnf.numpy.losses.classification_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">classification_error</span></code></a>(i_out, v_k[, split_v_k])</p></td>
 <td><p>Compute minimum classification error  Er_k=|I2-(V_k&gt;=V_k_th)|.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.approximation_error" title="mat_dnf.numpy.losses.approximation_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">approximation_error</span></code></a>(c, d_k, d_i_in, i_out[, split_c, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.approximation_error" title="mat_dnf.numpy.losses.approximation_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">approximation_error</span></code></a>(c, d_k, d_i_in, i_out[, split_c, ...])</p></td>
 <td><p>Compute minimum approximation error Er_k_th by {D_k_th, C_th}.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.logi_conseq" title="mat_dnf.numpy.losses.logi_conseq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_conseq</span></code></a>(dnf, i_out, i_in)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.logi_conseq" title="mat_dnf.numpy.losses.logi_conseq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_conseq</span></code></a>(dnf, i_out, i_in)</p></td>
 <td><p>Logical consequence. <a href="#id1"><span class="problematic" id="id2">|</span></a>= phi_0 =&gt; phi</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.logi_equiv" title="mat_dnf.numpy.losses.logi_equiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_equiv</span></code></a>(dnf, i_out, i_in)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.logi_equiv" title="mat_dnf.numpy.losses.logi_equiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logi_equiv</span></code></a>(dnf, i_out, i_in)</p></td>
 <td><p>Logical equivalence. <a href="#id3"><span class="problematic" id="id4">|</span></a>= phi_0 &lt;=&gt; phi</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.pred_classi" title="mat_dnf.numpy.losses.pred_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pred_classi</span></code></a>(d_k, i1, l2, c)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.pred_classi" title="mat_dnf.numpy.losses.pred_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pred_classi</span></code></a>(d_k, i1, l2, c)</p></td>
 <td><p>prediction by soft DNF for the learned DNF.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.acc_classi" title="mat_dnf.numpy.losses.acc_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_classi</span></code></a>(d_k, v_k_th, i1, i2_k, l2, c)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.acc_classi" title="mat_dnf.numpy.losses.acc_classi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_classi</span></code></a>(d_k, v_k_th, i1, i2_k, l2, c)</p></td>
 <td><p>accuracy metric predicted by soft DNF for the learned DNF.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.pred_dnf" title="mat_dnf.numpy.losses.pred_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pred_dnf</span></code></a>(dnf, i1, l2)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.pred_dnf" title="mat_dnf.numpy.losses.pred_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pred_dnf</span></code></a>(dnf, i1, l2)</p></td>
 <td><p>prediction by the learned DNF</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.acc_dnf" title="mat_dnf.numpy.losses.acc_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_dnf</span></code></a>(dnf, i1, i2_k, l2)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.numpy.losses.acc_dnf" title="mat_dnf.numpy.losses.acc_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">acc_dnf</span></code></a>(dnf, i1, i2_k, l2)</p></td>
 <td><p>accuracy metric predicted by the learned DNF.</p></td>
 </tr>
 </tbody>
@@ -358,6 +361,11 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.numpy.losses.stable_argmin">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.numpy.losses.</span></span><span class="sig-name descname"><span class="pre">stable_argmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.numpy.losses.stable_argmin" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.numpy.losses.classification_error">
 <span class="sig-prename descclassname"><span class="pre">mat_dnf.numpy.losses.</span></span><span class="sig-name descname"><span class="pre">classification_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_v_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.numpy.losses.classification_error" title="Link to this definition">#</a></dt>
@@ -585,6 +593,7 @@ where y_pred is computed by discretized clauses</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.numpy.losses.stable_argmin"><code class="docutils literal notranslate"><span class="pre">stable_argmin()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.numpy.losses.classification_error"><code class="docutils literal notranslate"><span class="pre">classification_error()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.numpy.losses.approximation_error"><code class="docutils literal notranslate"><span class="pre">approximation_error()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.numpy.losses.logi_conseq"><code class="docutils literal notranslate"><span class="pre">logi_conseq()</span></code></a></li>
