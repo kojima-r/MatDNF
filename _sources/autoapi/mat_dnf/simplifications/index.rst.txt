@@ -14,6 +14,7 @@ Functions
 
 .. autoapisummary::
 
+   mat_dnf.simplifications.remove_a_or_not_a_weak
    mat_dnf.simplifications.simp_dnf
    mat_dnf.simplifications.remove_a_not_a
    mat_dnf.simplifications._unit_propagation
@@ -24,6 +25,20 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:function:: remove_a_or_not_a_weak(c, c_th, d_k_th, eps = 0.5, thresh = 0.0)
+
+   Removes clauses from a DNF matrix where a variable and its negation are both present,
+   considering a weak condition based on epsilon and a threshold.
+
+   :param c: The continuous C-part of the learned DNF.
+   :param c_th: The thresholded C-part of the learned DNF.
+   :param d_k_th: The thresholded D_k-part of the learned DNF.
+   :param eps: Epsilon value for the weak condition.
+   :param thresh: Threshold value for the weak condition.
+
+   :returns: A NumPy array representing the simplified DNF matrix.
+
 
 .. py:function:: simp_dnf(dnf)
 

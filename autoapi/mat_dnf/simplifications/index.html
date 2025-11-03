@@ -325,22 +325,25 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.simplifications.simp_dnf" title="mat_dnf.simplifications.simp_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simp_dnf</span></code></a>(dnf)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.simplifications.remove_a_or_not_a_weak" title="mat_dnf.simplifications.remove_a_or_not_a_weak"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_a_or_not_a_weak</span></code></a>(c, c_th, d_k_th[, eps, thresh])</p></td>
+<td><p>Removes clauses from a DNF matrix where a variable and its negation are both present,</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.simplifications.simp_dnf" title="mat_dnf.simplifications.simp_dnf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simp_dnf</span></code></a>(dnf)</p></td>
 <td><p>DNF simplification.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.simplifications.remove_a_not_a" title="mat_dnf.simplifications.remove_a_not_a"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_a_not_a</span></code></a>(dnf)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.simplifications.remove_a_not_a" title="mat_dnf.simplifications.remove_a_not_a"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_a_not_a</span></code></a>(dnf)</p></td>
 <td><p>Remove ..A&amp;~A.. conjunction.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.simplifications._unit_propagation" title="mat_dnf.simplifications._unit_propagation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_unit_propagation</span></code></a>(dnf)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.simplifications._unit_propagation" title="mat_dnf.simplifications._unit_propagation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_unit_propagation</span></code></a>(dnf)</p></td>
 <td><p>DNF simplification by unit propagation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.simplifications._resolution" title="mat_dnf.simplifications._resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_resolution</span></code></a>(dnf)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.simplifications._resolution" title="mat_dnf.simplifications._resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_resolution</span></code></a>(dnf)</p></td>
 <td><p>DNF simplification by resolution.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.simplifications._remove_empty_rows" title="mat_dnf.simplifications._remove_empty_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_remove_empty_rows</span></code></a>(dnf)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.simplifications._remove_empty_rows" title="mat_dnf.simplifications._remove_empty_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_remove_empty_rows</span></code></a>(dnf)</p></td>
 <td><p>Remove [0..0] row as it behaves as a false disjunct in a DNF.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.simplifications._subsumption" title="mat_dnf.simplifications._subsumption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_subsumption</span></code></a>(dnf)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.simplifications._subsumption" title="mat_dnf.simplifications._subsumption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_subsumption</span></code></a>(dnf)</p></td>
 <td><p>DNF simplification by subsumption.</p></td>
 </tr>
 </tbody>
@@ -349,6 +352,27 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.simplifications.remove_a_or_not_a_weak">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.simplifications.</span></span><span class="sig-name descname"><span class="pre">remove_a_or_not_a_weak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_k_th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.simplifications.remove_a_or_not_a_weak" title="Link to this definition">#</a></dt>
+<dd><p>Removes clauses from a DNF matrix where a variable and its negation are both present,
+considering a weak condition based on epsilon and a threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>c</strong> – The continuous C-part of the learned DNF.</p></li>
+<li><p><strong>c_th</strong> – The thresholded C-part of the learned DNF.</p></li>
+<li><p><strong>d_k_th</strong> – The thresholded D_k-part of the learned DNF.</p></li>
+<li><p><strong>eps</strong> – Epsilon value for the weak condition.</p></li>
+<li><p><strong>thresh</strong> – Threshold value for the weak condition.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A NumPy array representing the simplified DNF matrix.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.simplifications.simp_dnf">
 <span class="sig-prename descclassname"><span class="pre">mat_dnf.simplifications.</span></span><span class="sig-name descname"><span class="pre">simp_dnf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.simplifications.simp_dnf" title="Link to this definition">#</a></dt>
@@ -498,6 +522,7 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.simplifications.remove_a_or_not_a_weak"><code class="docutils literal notranslate"><span class="pre">remove_a_or_not_a_weak()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.simplifications.simp_dnf"><code class="docutils literal notranslate"><span class="pre">simp_dnf()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.simplifications.remove_a_not_a"><code class="docutils literal notranslate"><span class="pre">remove_a_not_a()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.simplifications._unit_propagation"><code class="docutils literal notranslate"><span class="pre">_unit_propagation()</span></code></a></li>
