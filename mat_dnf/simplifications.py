@@ -23,6 +23,7 @@ def remove_a_or_not_a_weak[T: NBitBase](c: NDArray[floating[T]],
   Returns:
     A NumPy array representing the simplified DNF matrix.
   """
+  n = c.shape[1]//2
   dnf_th: np.ndarray[T] = c_th[d_k_th]
   # Rows of non_A_notA in DNF2_th
   bb = (dnf_th[:, :n] + dnf_th[:, n:])==2
