@@ -3,8 +3,39 @@
 from typing import cast
 
 import cupy as cp
-from numpy import bool_, integer
+from numpy import bool_, integer, floating
 from numpy.typing import NBitBase, NDArray
+
+def remove_a_or_not_a_weak[T: NBitBase](c: NDArray[floating[T]],
+        c_th: NDArray[integer[T]], d_k_th: NDArray[integer[T]],
+        eps: floating[T] = 5.0e-1, thresh: floating[T] = 0.0) -> NDArray[integer[T]]:
+  """
+  Removes clauses from a DNF matrix where a variable and its negation are both present,
+  considering a weak condition based on epsilon and a threshold.
+
+  Args:
+    c: The continuous C-part of the learned DNF.
+    c_th: The thresholded C-part of the learned DNF.
+    d_k_th: The thresholded D_k-part of the learned DNF.
+    eps: Epsilon value for the weak condition.
+    thresh: Threshold value for the weak condition.
+
+  Returns:
+    A NumPy array representing the simplified DNF matrix.
+  """
+  dnf_th: np.ndarray[T] = c_th[d_k_th]
+  # Rows of non_A_notA in DNF2_th
+  bb = (dnf_th[:, :n] + dnf_th[:, n:])==2
+  c_=c[d_k_th]
+  pos_flag=bb&((c_[:,:n] >=c_[:,n:]-eps)|(c_[:,:n]+c_[:,n:]<thresh))
+  neg_flag=bb&((c_[:,:n]-eps <c_[:,n:]) |(c_[:,:n]+c_[:,n:]<thresh))
+  #print("pos:",np.sum(pos_flag,axis=1))
+  #print("neg:",np.sum(neg_flag,axis=1))
+  dnf_th[:, n:]-=pos_flag
+  dnf_th[:, :n]-=neg_flag
+  dnf_th[dnf_th<0]=0
+  f=~((dnf_th==0).all(axis=1))
+  return dnf_th[f,:]
 
 
 def simp_dnf[T: NBitBase](dnf: NDArray[integer[T]]) -> NDArray[integer[T]]:

@@ -237,7 +237,7 @@ def test_train_mat_dnf(use_sam: bool):
 
         model = MatDNF(c=jnp.array(c_init), d_k=jnp.array(d_k_init))
 
-        model, v_k_th, learned_dnf = train_mat_dnf(
+        model, v_k_th, learned_dnf, _ = train_mat_dnf(
             model=model,
             key=subkey,
             fold=0,

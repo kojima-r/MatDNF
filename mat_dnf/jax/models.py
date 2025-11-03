@@ -338,4 +338,4 @@ def train_mat_dnf(
         no_A_notA = ~((bb == 2).any(axis=1))  # noqa: PLR2004
         learned_dnf = dnf_th[no_A_notA]
 
-    return model, v_k_th, learned_dnf
+    return model, v_k_th, learned_dnf, (c_th, d_k_th)

@@ -216,7 +216,7 @@ def test_train_mat_dnf(use_sam: bool):
 
         model = MatDNF(c=c_init, d_k=d_k_init)
 
-        model, v_k_th, learned_dnf = train_mat_dnf(
+        model, v_k_th, learned_dnf,_ = train_mat_dnf(
             model=model,
             i_in=i1_dr,
             i_out=i2_k,

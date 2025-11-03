@@ -72,7 +72,7 @@ for i in range(i_max):
     d_k_init = random_d_k(rng, h=h, n=n)
 
     s = time.monotonic()
-    c, d_k, v_k_th, learned_dnf = train_mat_dnf(
+    c, d_k, v_k_th, learned_dnf,_ = train_mat_dnf(
         rng=rng,
         c=c_init,
         d_k=d_k_init,

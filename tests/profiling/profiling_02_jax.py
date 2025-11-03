@@ -79,7 +79,7 @@ for i in range(i_max):
     model = MatDNF.create_random(key=model_key, h=h, n=n, aa=4)
 
     s = time.monotonic()
-    model, v_k_th, learned_dnf = train_mat_dnf(
+    model, v_k_th, learned_dnf, _ = train_mat_dnf(
         model=model,
         key=train_key,
         fold=i,

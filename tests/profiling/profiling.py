@@ -27,7 +27,7 @@ def main():
     c_optimizer = Adam()
     d_k_optimizer = Adam()
 
-    _, _, _, _ = train_mat_dnf(
+    _, _, _, _, _ = train_mat_dnf(
         fold=0,
         i_in=I1,
         i_out=I2,
