@@ -1,23 +1,19 @@
 from sklearn.base import BaseEstimator, ClassifierMixin
-import cupy as cp
-
-from sklearn.base import BaseEstimator, ClassifierMixin
-import cupy as cp
-from mat_dnf.simplifications import remove_a_or_not_a_weak
-from sklearn.feature_selection import SelectKBest, chi2, VarianceThreshold
+from sklearn.feature_selection import SelectKBest, chi2
 
 import numpy as np
-from numpy.typing import DTypeLike, NBitBase, NDArray
+from numpy.typing import NDArray
 
-# NumPy/CuPy-MatDNF
-from mat_dnf.numpy.losses import acc_classi, acc_dnf, logi_conseq, logi_equiv
-from mat_dnf.numpy.models import (
-    MatDNF,
-    train_mat_dnf,
+from mat_dnf.numpy.losses import (
+    acc_classi,
+    acc_dnf,
+    logi_conseq,
+    logi_equiv,
+    pred_classi,
+    pred_dnf,
 )
-
-# Utility functions
-from mat_dnf.simplifications import simp_dnf
+from mat_dnf.numpy.models import MatDNF, train_mat_dnf
+from mat_dnf.simplifications import remove_a_or_not_a_weak, simp_dnf
 from mat_dnf.utils import (
     MeanLogger,
     n_parity_function,
@@ -26,16 +22,29 @@ from mat_dnf.utils import (
     read_nth_dnf,
 )
 
-from mat_dnf.numpy.losses import pred_classi, pred_dnf
 
-@staticmethod
+def _resolve_device(device_name: str):
+    """Return (xp_module, rng) for the given device_name ('cpu' or 'gpu').
+
+    CuPy is imported lazily so the module remains usable on systems without it
+    when ``device_name == 'cpu'``.
+    """
+    if device_name == "gpu":
+        import cupy as cp
+
+        return cp, cp.random.default_rng()
+    if device_name == "cpu":
+        return np, np.random.default_rng()
+    raise ValueError(
+        f"Unknown device_name: {device_name!r} (expected 'cpu' or 'gpu')"
+    )
+
+
 def sigmoid(x):
     return 1.0 / (1.0 + np.exp(-x))
 
 
-def predict_dnf_c(dnf, i1):
-    xp = cp.get_array_module(dnf, i1)
-    # TODO: This block pattern is repeated many times -> utils.py
+def predict_dnf_c(dnf, i1, xp=np):
     xx = (dnf @ xp.vstack([i1, 1 - i1])) == dnf.sum(axis=1)[:, None]
     return xx
 
@@ -80,10 +89,10 @@ class MatDNFClassifier(BaseEstimator, ClassifierMixin):
         self.use_perturbation = use_perturbation
         self.use_sam = use_sam
         self.device_name = device_name
+        self.xp, self.rng = _resolve_device(device_name)
         self.model = None
         self.learned_dnf = None
         self.learned_dnf_weak = None
-        self.rng = np.random.default_rng()
         self.n_feature = None
         self.feature_names = None
         self.target_name = None
@@ -99,37 +108,25 @@ class MatDNFClassifier(BaseEstimator, ClassifierMixin):
 
         Returns:
             xp: Array module (numpy or cupy).
-            X: Prepared input features.
+            X: Prepared input features (transposed and on the active device).
             y: Prepared target variable (optional).
         """
-        if self.device_name == "gpu":
-            import cupy as cp
-
-            X = cp.asarray(X.T)
-            if y is not None:
-                y = cp.asarray(y)
-            xp = cp
-        else:
+        xp = self.xp
+        if xp is np:
             X = X.T
-            xp = np
+        else:
+            X = xp.asarray(X.T)
+            if y is not None:
+                y = xp.asarray(y)
         return xp, X, y
 
     def _post_process(self, out):
         """
-        Post-processes the output data.
-
-        Args:
-            out: Output data.
-
-        Returns:
-            out: Post-processed output data.
+        Post-processes the output data, transferring back to host memory if on GPU.
         """
-        if self.device_name == "gpu":
-            import cupy as cp
-
-            return cp.asnumpy(out)
-        else:
+        if self.xp is np:
             return out
+        return self.xp.asnumpy(out)
 
     def _select_feature(self, X, feature_names=None):
         if self.feature_indices is not None:
@@ -262,9 +259,9 @@ class MatDNFClassifier(BaseEstimator, ClassifierMixin):
         X, _ = self._select_feature(X)
         xp, X, _ = self._prep(X)
         if use_weak:
-            predictions = predict_dnf_c(self.learned_dnf_weak, X).T
+            predictions = predict_dnf_c(self.learned_dnf_weak, X, xp=xp).T
         else:
-            predictions = predict_dnf_c(self.learned_dnf, X).T
+            predictions = predict_dnf_c(self.learned_dnf, X, xp=xp).T
         return self._post_process(predictions)
 
     def predict_proba(self, X):
@@ -304,12 +301,13 @@ class MatDNFClassifier(BaseEstimator, ClassifierMixin):
         Returns:
             dependent_vars: Boolean array indicating dependent variables.
         """
+        xp = self.xp
         if use_weak:
-            x = np.sum(self.learned_dnf_weak[:, :], axis=0) > 0
+            x = xp.sum(self.learned_dnf_weak[:, :], axis=0) > 0
         else:
-            x = np.sum(self.learned_dnf[:, :], axis=0) > 0
+            x = xp.sum(self.learned_dnf[:, :], axis=0) > 0
         xx = (x[: self.n_feature] + x[self.n_feature :]) > 0
-        return xx
+        return self._post_process(xx)
 
     def get_supported_score(self, X, use_weak=False):
         """
@@ -354,9 +352,10 @@ class MatDNFClassifier(BaseEstimator, ClassifierMixin):
             supported_vars: Boolean array indicating supported variables.
         """
         dnf = self.get_supported_dnf(X, threshold, use_weak=use_weak)
-        x = np.sum(dnf, axis=0) > 0
+        xp = self.xp
+        x = xp.sum(dnf, axis=0) > 0
         xx = (x[: self.n_feature] + x[self.n_feature :]) > 0
-        return xx
+        return self._post_process(xx)
 
     def print_supported_dnf(self, X, threshold=0, use_weak=False):
         """
@@ -438,10 +437,14 @@ class MatDNFClassifier(BaseEstimator, ClassifierMixin):
         Args:
             dnf_mat: DNF matrix to print.
         """
+        xp = self.xp
         n_clause = len(dnf_mat)
-        # print(dnf_mat, n_clause, self.n_feature)
         dnf = [[] for _ in range(n_clause)]
-        for i, j in zip(*np.where(dnf_mat > 0.5)):
+        rows, cols = xp.where(dnf_mat > 0.5)
+        if xp is not np:
+            rows = xp.asnumpy(rows)
+            cols = xp.asnumpy(cols)
+        for i, j in zip(rows, cols):
             if j < self.n_feature:
                 dnf[i].append(self.feature_names[j])
             else:
@@ -473,10 +476,11 @@ class MatDNFClassifier(BaseEstimator, ClassifierMixin):
         """
         # c = (h, 2 * n)
         # d_k = (h,)
+        xp = model_list[0].xp if model_list else np
         h_all = int(sum([m.model.c.shape[0] for m in model_list]))
         n_all = int(sum([m.model.c.shape[1] / 2 for m in model_list]))
-        c_all = np.zeros((h_all, 2 * n_all))
-        d_k_all = np.zeros(h_all)
+        c_all = xp.zeros((h_all, 2 * n_all))
+        d_k_all = xp.zeros(h_all)
         n_cnt = 0
         h_cnt = 0
         for m in model_list:
@@ -531,8 +535,8 @@ class DNFBooleanNet(BaseEstimator):
         self.use_perturbation = use_perturbation
         self.use_sam = use_sam
         self.device_name = device_name
+        self.xp, self.rng = _resolve_device(device_name)
         self.learned_dnf_cls_ = {}  # Store learned DNF for each column
-        self.rng = np.random.default_rng()
         self.feature_names = None
 
     def fit(self, X, y=None, feature_names=None, selfloop=False):
@@ -581,11 +585,6 @@ class DNFBooleanNet(BaseEstimator):
 
             target_name = feature_names[i]
             n_features_for_col = X_train_cols.shape[1]
-
-            # Ensure X_train_cols and Y_train_col have the correct shape for MatDNFClassifier
-            # MatDNFClassifier expects X to be (num_samples, num_features) and y to be (num_samples,)
-            # X_train_cols is already (num_samples, num_features_for_col)
-            # Y_train_col is already (num_samples,)
 
             # Initialize a new MatDNFClassifier instance for each column
             col_classifier = MatDNFClassifier(
