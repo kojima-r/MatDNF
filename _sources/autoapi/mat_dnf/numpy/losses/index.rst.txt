@@ -30,7 +30,7 @@ Module Contents
 
 .. py:function:: stable_argmin(xp, a)
 
-.. py:function:: classification_error(i_out, v_k, split_v_k = 20)
+.. py:function:: classification_error[T, U](i_out, v_k, split_v_k = 20)
 
    Compute minimum classification error  Er_k=|I2-(V_k>=V_k_th)|.
 
@@ -43,7 +43,7 @@ Module Contents
    :rtype: er_k
 
 
-.. py:function:: approximation_error(c, d_k, d_i_in, i_out, split_c = 10, split_d_k = 10)
+.. py:function:: approximation_error[T, U](c, d_k, d_i_in, i_out, split_c = 10, split_d_k = 10)
 
    Compute minimum approximation error Er_k_th by {D_k_th, C_th}.
 
@@ -60,7 +60,7 @@ Module Contents
    :rtype: er_k_th
 
 
-.. py:function:: logi_conseq(dnf, i_out, i_in)
+.. py:function:: logi_conseq[T](dnf, i_out, i_in)
 
    Logical consequence. |= phi_0 => phi
    s.t.
@@ -79,7 +79,7 @@ Module Contents
    :rtype: bool
 
 
-.. py:function:: logi_equiv(dnf, i_out, i_in)
+.. py:function:: logi_equiv[T](dnf, i_out, i_in)
 
    Logical equivalence. |= phi_0 <=> phi
    s.t.
@@ -95,7 +95,7 @@ Module Contents
    :rtype: bool
 
 
-.. py:function:: pred_classi(d_k, i1, l2, c)
+.. py:function:: pred_classi[T, U](d_k, i1, l2, c)
 
    prediction by soft DNF for the learned DNF.
    where y_pred is computed by continual weighted clauses
@@ -106,7 +106,7 @@ Module Contents
    :param c: C-part of learned DNF (continuous space).   # (h, 2n) where n=#variables and h is the maximum number of conjunctions in a DNF.
 
 
-.. py:function:: acc_classi(d_k, v_k_th, i1, i2_k, l2, c)
+.. py:function:: acc_classi[T, U](d_k, v_k_th, i1, i2_k, l2, c)
 
    accuracy metric predicted by soft DNF for the learned DNF.
    1/L sum 1_{y_pred=i2_k}

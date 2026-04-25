@@ -1,0 +1,419 @@
+mat_dnf.learner
+===============
+
+.. py:module:: mat_dnf.learner
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   mat_dnf.learner.MatDNFClassifier
+   mat_dnf.learner.DNFBooleanNet
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   mat_dnf.learner.predict_dnf_c
+
+
+Module Contents
+---------------
+
+.. py:method:: sigmoid(x)
+   :staticmethod:
+
+
+.. py:function:: predict_dnf_c(dnf, i1)
+
+.. py:class:: MatDNFClassifier(h=1000, aa=4, er_max=0, alpha=0.1, max_itr=500, max_try=20, extra_itr=0, use_perturbation=True, use_sam=True, device_name='cpu')
+
+   Bases: :py:obj:`sklearn.base.BaseEstimator`, :py:obj:`sklearn.base.ClassifierMixin`
+
+
+   .. py:attribute:: h
+      :value: 1000
+
+
+
+   .. py:attribute:: aa
+      :value: 4
+
+
+
+   .. py:attribute:: er_max
+      :value: 0
+
+
+
+   .. py:attribute:: alpha
+      :value: 0.1
+
+
+
+   .. py:attribute:: max_itr
+      :value: 500
+
+
+
+   .. py:attribute:: max_try
+      :value: 20
+
+
+
+   .. py:attribute:: extra_itr
+      :value: 0
+
+
+
+   .. py:attribute:: use_perturbation
+      :value: True
+
+
+
+   .. py:attribute:: use_sam
+      :value: True
+
+
+
+   .. py:attribute:: device_name
+      :value: 'cpu'
+
+
+
+   .. py:attribute:: model
+      :value: None
+
+
+
+   .. py:attribute:: learned_dnf
+      :value: None
+
+
+
+   .. py:attribute:: learned_dnf_weak
+      :value: None
+
+
+
+   .. py:attribute:: rng
+
+
+   .. py:attribute:: n_feature
+      :value: None
+
+
+
+   .. py:attribute:: feature_names
+      :value: None
+
+
+
+   .. py:attribute:: target_name
+      :value: None
+
+
+
+   .. py:attribute:: feature_indices
+      :value: None
+
+
+
+   .. py:method:: _prep(X, y=None)
+
+      Prepares input data for training or prediction.
+
+      :param X: Input features.
+      :param y: Target variable (optional).
+
+      :returns: Array module (numpy or cupy).
+                X: Prepared input features.
+                y: Prepared target variable (optional).
+      :rtype: xp
+
+
+
+   .. py:method:: _post_process(out)
+
+      Post-processes the output data.
+
+      :param out: Output data.
+
+      :returns: Post-processed output data.
+      :rtype: out
+
+
+
+   .. py:method:: _select_feature(X, feature_names=None)
+
+
+   .. py:method:: transform(X, y, alpha=0.05, feature_names=None)
+
+
+   .. py:method:: fit(X, y, feature_names=None, target_name=None, init_c=None, init_d_k=None, with_transform=False)
+
+      Fits the MatDNFClassifier model.
+
+      :param X: Training data features.
+      :param y: Training data target variable.
+      :param feature_names: Names of the input features.
+      :param target_name: Name of the target variable.
+      :param init_c: Initial value for the C-part of the model.
+      :param init_d_k: Initial value for the D_k-part of the model.
+
+      :returns: Fitted MatDNFClassifier instance.
+      :rtype: self
+
+
+
+   .. py:method:: predict(X, use_weak=False)
+
+      Predicts the class labels for the input data with DNF.
+
+      :param X: Input data features.
+
+      :returns: Predicted class labels.
+      :rtype: predictions
+
+
+
+   .. py:method:: predict_conj(X, use_weak=False)
+
+      Predicts the truth values for each conjunction in the DNF.
+
+      :param X: Input data features.
+
+      :returns: Truth values for each conjunction.
+      :rtype: predictions
+
+
+
+   .. py:method:: predict_proba(X)
+
+      Predicts the class probabilities for the input data.
+
+      :param X: Input data features.
+
+      :returns: Predicted class probabilities.
+      :rtype: probabilities
+
+
+
+   .. py:method:: predict_logproba(X)
+
+      Predicts the log probabilities for the input data.
+
+      :param X: Input data features.
+
+      :returns: Predicted log probabilities.
+      :rtype: log_probabilities
+
+
+
+   .. py:method:: get_dependent_vars(use_weak=False)
+
+      Gets the indices of dependent variables based on the learned DNF.
+
+      :returns: Boolean array indicating dependent variables.
+      :rtype: dependent_vars
+
+
+
+   .. py:method:: get_supported_score(X, use_weak=False)
+
+      Gets the support score for each conjunction based on the input data.
+
+      :param X: Input data features.
+
+      :returns: Support score for each conjunction.
+      :rtype: supported_score
+
+
+
+   .. py:method:: get_supported_dnf(X, threshold=0, use_weak=False)
+
+      Gets the supported DNF based on the input data and a threshold.
+
+      :param X: Input data features.
+      :param threshold: Threshold for support score.
+
+      :returns: Supported DNF.
+      :rtype: supported_dnf
+
+
+
+   .. py:method:: get_supported_vars(X, threshold=0, use_weak=False)
+
+      Gets the supported variables based on the input data and a threshold.
+
+      :param X: Input data features.
+      :param threshold: Threshold for support score.
+
+      :returns: Boolean array indicating supported variables.
+      :rtype: supported_vars
+
+
+
+   .. py:method:: print_supported_dnf(X, threshold=0, use_weak=False)
+
+      Prints the supported DNF based on the input data and a threshold.
+
+      :param X: Input data features.
+      :param threshold: Threshold for support score.
+
+
+
+   .. py:method:: score(X, y, metric='acc')
+
+      Evaluates the model's performance using different metrics.
+
+      :param X: Input data features.
+      :param y: Target variable.
+      :param metric: Metric to use for evaluation ('acc', 'acc_dnf', 'cnsq', 'equiv', or 'all').
+
+      :returns: Evaluation score(s).
+      :rtype: score
+
+
+
+   .. py:method:: print_dnf_mat(dnf_mat)
+
+      Prints a DNF matrix in a human-readable format.
+
+      :param dnf_mat: DNF matrix to print.
+
+
+
+   .. py:method:: print_dnf(use_weak=False)
+
+      Prints the learned DNF in a human-readable format.
+
+
+
+   .. py:method:: merge_param(model_list)
+      :staticmethod:
+
+
+      Merges the parameters of multiple MatDNFClassifier models.
+
+      :param model_list: List of MatDNFClassifier instances.
+
+      :returns: Merged C-part of the models.
+                d_k_all: Merged D_k-part of the models.
+      :rtype: c_all
+
+
+
+.. py:class:: DNFBooleanNet(h=1000, aa=4, er_max=0, alpha=0.1, max_itr=500, max_try=3, extra_itr=0, use_perturbation=True, use_sam=True, device_name='cpu')
+
+   Bases: :py:obj:`sklearn.base.BaseEstimator`
+
+
+   .. py:attribute:: h
+      :value: 1000
+
+
+
+   .. py:attribute:: aa
+      :value: 4
+
+
+
+   .. py:attribute:: er_max
+      :value: 0
+
+
+
+   .. py:attribute:: alpha
+      :value: 0.1
+
+
+
+   .. py:attribute:: max_itr
+      :value: 500
+
+
+
+   .. py:attribute:: max_try
+      :value: 3
+
+
+
+   .. py:attribute:: extra_itr
+      :value: 0
+
+
+
+   .. py:attribute:: use_perturbation
+      :value: True
+
+
+
+   .. py:attribute:: use_sam
+      :value: True
+
+
+
+   .. py:attribute:: device_name
+      :value: 'cpu'
+
+
+
+   .. py:attribute:: learned_dnf_cls_
+
+
+   .. py:attribute:: rng
+
+
+   .. py:attribute:: feature_names
+      :value: None
+
+
+
+   .. py:method:: fit(X, y=None, feature_names=None, selfloop=False)
+
+      Fits the DNFBooleanNet model by training a MatDNFClassifier for each output variable.
+
+      :param X: Input features.
+      :type X: np.ndarray
+      :param y: Target variables. If None, X is used as target variables.
+      :type y: np.ndarray, optional
+      :param feature_names: Names of the features.
+      :type feature_names: list, optional
+      :param selfloop: Whether to include the target variable as an input feature for its own DNF.
+      :type selfloop: bool
+
+      :returns: Fitted DNFBooleanNet instance.
+      :rtype: self
+
+
+
+   .. py:method:: get_learned_dnf(variable_index, use_weak = False)
+
+      Returns the learned DNF for a specific variable (column).
+
+      :param variable_index: The index of the variable.
+      :type variable_index: int
+      :param use_weak: Whether to return the weakly simplified DNF.
+      :type use_weak: bool
+
+      :returns: The learned DNF matrix for the specified variable.
+      :rtype: np.ndarray
+
+      :raises ValueError: If no learned DNF is found for the variable index.
+
+
+
+   .. py:method:: print_learned_dnfs(use_weak = False)
+
+      Prints the learned DNF for each variable.
+
+      :param use_weak: Whether to print the weakly simplified DNF.
+      :type use_weak: bool
+
+
+

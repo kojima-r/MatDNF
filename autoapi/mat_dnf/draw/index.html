@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>mat_dnf.jax &#8212; mat-dnf 0.1.0 documentation</title>
+    <title>mat_dnf.draw &#8212; mat-dnf 0.1.0 documentation</title>
   
   
   
@@ -42,12 +42,12 @@
     <script src="../../../_static/documentation_options.js?v=01f34227"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/mat_dnf/jax/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/mat_dnf/draw/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="mat_dnf.jax.losses" href="losses/index.html" />
-    <link rel="prev" title="mat_dnf.draw" href="../draw/index.html" />
+    <link rel="next" title="mat_dnf.jax" href="../jax/index.html" />
+    <link rel="prev" title="mat_dnf" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -253,11 +253,11 @@
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">mat_dnf</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../draw/index.html">mat_dnf.draw</a></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">mat_dnf.jax</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="losses/index.html">mat_dnf.jax.losses</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models/index.html">mat_dnf.jax.models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="optimizers/index.html">mat_dnf.jax.optimizers</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">mat_dnf.draw</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../jax/index.html">mat_dnf.jax</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../jax/losses/index.html">mat_dnf.jax.losses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../jax/models/index.html">mat_dnf.jax.models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../jax/optimizers/index.html">mat_dnf.jax.optimizers</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../learner/index.html">mat_dnf.learner</a></li>
@@ -317,7 +317,7 @@
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">mat_dnf</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">mat_dnf.jax</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">mat_dnf.draw</span></li>
   </ul>
 </nav>
 </div>
@@ -334,17 +334,66 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-mat_dnf.jax">
-<span id="mat-dnf-jax"></span><h1>mat_dnf.jax<a class="headerlink" href="#module-mat_dnf.jax" title="Link to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="losses/index.html">mat_dnf.jax.losses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models/index.html">mat_dnf.jax.models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optimizers/index.html">mat_dnf.jax.optimizers</a></li>
-</ul>
+  <section id="module-mat_dnf.draw">
+<span id="mat-dnf-draw"></span><h1>mat_dnf.draw<a class="headerlink" href="#module-mat_dnf.draw" title="Link to this heading">#</a></h1>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.draw.get_networkx" title="mat_dnf.draw.get_networkx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_networkx</span></code></a>(dnf_model[, clause_offset, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.draw.draw_and_or" title="mat_dnf.draw.draw_and_or"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_and_or</span></code></a>(G)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.draw.get_combined_graph" title="mat_dnf.draw.get_combined_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_combined_graph</span></code></a>(bn_model[, use_weak])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.draw.draw_combined_and_or" title="mat_dnf.draw.draw_combined_and_or"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_combined_and_or</span></code></a>(G, pos)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.draw.get_variable_dependency_graph" title="mat_dnf.draw.get_variable_dependency_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_variable_dependency_graph</span></code></a>(bn_model)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.draw.draw_variable_dependency_graph" title="mat_dnf.draw.draw_variable_dependency_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_variable_dependency_graph</span></code></a>(G)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
 </div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.draw.get_networkx">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.draw.</span></span><span class="sig-name descname"><span class="pre">get_networkx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clause_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_or_post</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.draw.get_networkx" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.draw.draw_and_or">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.draw.</span></span><span class="sig-name descname"><span class="pre">draw_and_or</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.draw.draw_and_or" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.draw.get_combined_graph">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.draw.</span></span><span class="sig-name descname"><span class="pre">get_combined_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bn_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.draw.get_combined_graph" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.draw.draw_combined_and_or">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.draw.</span></span><span class="sig-name descname"><span class="pre">draw_combined_and_or</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.draw.draw_combined_and_or" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.draw.get_variable_dependency_graph">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.draw.</span></span><span class="sig-name descname"><span class="pre">get_variable_dependency_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bn_model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.draw.get_variable_dependency_graph" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.draw.draw_variable_dependency_graph">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.draw.</span></span><span class="sig-name descname"><span class="pre">draw_variable_dependency_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.draw.draw_variable_dependency_graph" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 </section>
 </section>
 
@@ -359,20 +408,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../draw/index.html"
+       href="../index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">mat_dnf.draw</p>
+        <p class="prev-next-title">mat_dnf</p>
       </div>
     </a>
     <a class="right-next"
-       href="losses/index.html"
+       href="../jax/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">mat_dnf.jax.losses</p>
+        <p class="prev-next-title">mat_dnf.jax</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -395,14 +444,23 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.draw.get_networkx"><code class="docutils literal notranslate"><span class="pre">get_networkx()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.draw.draw_and_or"><code class="docutils literal notranslate"><span class="pre">draw_and_or()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.draw.get_combined_graph"><code class="docutils literal notranslate"><span class="pre">get_combined_graph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.draw.draw_combined_and_or"><code class="docutils literal notranslate"><span class="pre">draw_combined_and_or()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.draw.get_variable_dependency_graph"><code class="docutils literal notranslate"><span class="pre">get_variable_dependency_graph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.draw.draw_variable_dependency_graph"><code class="docutils literal notranslate"><span class="pre">draw_variable_dependency_graph()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../../../_sources/autoapi/mat_dnf/jax/index.rst.txt">
+    <a href="../../../_sources/autoapi/mat_dnf/draw/index.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

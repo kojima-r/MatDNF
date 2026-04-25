@@ -26,7 +26,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: remove_a_or_not_a_weak(c, c_th, d_k_th, eps = 0.5, thresh = 0.0)
+.. py:function:: remove_a_or_not_a_weak[T](c, c_th, d_k_th, eps = 0.5, thresh = 0.0)
 
    Removes clauses from a DNF matrix where a variable and its negation are both present,
    considering a weak condition based on epsilon and a threshold.
@@ -40,7 +40,7 @@ Module Contents
    :returns: A NumPy array representing the simplified DNF matrix.
 
 
-.. py:function:: simp_dnf(dnf)
+.. py:function:: simp_dnf[T](dnf)
 
    DNF simplification.
 
@@ -62,7 +62,7 @@ Module Contents
    :returns: Simplified DNF.
 
 
-.. py:function:: remove_a_not_a(dnf)
+.. py:function:: remove_a_not_a[T](dnf)
 
    Remove ..A&~A.. conjunction.
 
@@ -71,7 +71,7 @@ Module Contents
    :returns: Simplified DNF.
 
 
-.. py:function:: _unit_propagation(dnf)
+.. py:function:: _unit_propagation[T](dnf)
 
    DNF simplification by unit propagation.
 
@@ -80,7 +80,7 @@ Module Contents
    :returns: Simplified DNF.
 
 
-.. py:function:: _resolution(dnf)
+.. py:function:: _resolution[T](dnf)
 
    DNF simplification by resolution.
 
@@ -89,7 +89,7 @@ Module Contents
    :returns: Simplified DNF.
 
 
-.. py:function:: _remove_empty_rows(dnf)
+.. py:function:: _remove_empty_rows[T](dnf)
 
    Remove [0..0] row as it behaves as a false disjunct in a DNF.
 
@@ -98,7 +98,7 @@ Module Contents
    :returns: Simplified DNF.
 
 
-.. py:function:: _subsumption(dnf)
+.. py:function:: _subsumption[T](dnf)
 
    DNF simplification by subsumption.
 

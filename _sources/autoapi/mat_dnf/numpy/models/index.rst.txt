@@ -41,7 +41,7 @@ Module Contents
 
 .. py:data:: RNGDType
 
-.. py:class:: MatDNF(c, d_k, aa = 4)
+.. py:class:: MatDNF[T: numpy.typing.NBitBase](c, d_k, aa = 4)
 
    MatDNF neural network.
 
@@ -86,7 +86,7 @@ Module Contents
 
 
 
-   .. py:method:: __call__(i_in_d)
+   .. py:method:: __call__[U](i_in_d)
 
       Compute v_k.
 
@@ -100,14 +100,14 @@ Module Contents
 
 
 
-.. py:function:: j_loss(model, i_in_d, i_out, l2 = 0.1)
+.. py:function:: j_loss[T, U](model, i_in_d, i_out, l2 = 0.1)
 
    The J cost function (Equation 3).
 
    Also returns auxiliary arrays to avoid repeated computation.
 
 
-.. py:function:: grad_j_loss(model, i_in_d, i_out, v_k, N, M, Y, Z, l2 = 0.1)
+.. py:function:: grad_j_loss[T, U](model, i_in_d, i_out, v_k, N, M, Y, Z, l2 = 0.1)
 
    Gradient of J cost function.
 
@@ -118,7 +118,7 @@ Module Contents
 
    Loss threshold for switching the number of bins in approximation_error.
 
-.. py:function:: train_mat_dnf(model, i_in, i_out, er_max, alpha, max_itr, max_try, extra_itr = 0, fold = 0, mode = 'dnf', use_sam = False, use_perturbation = True, *, rng)
+.. py:function:: train_mat_dnf[T, U](model, i_in, i_out, er_max, alpha, max_itr, max_try, extra_itr = 0, fold = 0, mode = 'dnf', use_sam = False, use_perturbation = True, *, rng)
 
    Mat_DNF training loop.
 

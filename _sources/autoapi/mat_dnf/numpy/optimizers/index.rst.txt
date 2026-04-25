@@ -29,7 +29,7 @@ Module Contents
    Generic optimizer.
 
 
-   .. py:method:: update(x, ja_x)
+   .. py:method:: update[T](x, ja_x)
       :abstractmethod:
 
 
@@ -90,7 +90,7 @@ Module Contents
       :type:  numpy.typing.NDArray[numpy.floating]
 
 
-   .. py:method:: update(x, ja_x)
+   .. py:method:: update[T](x, ja_x)
 
       Update x given gradient ja_x.
 

@@ -103,13 +103,13 @@ Module Contents
    % I_out(1 x l): truth values of (D,C) by I_in
 
 
-.. py:function:: all_bit_seq(n, dtype)
+.. py:function:: all_bit_seq[T](n, dtype)
                  all_bit_seq(n: int) -> numpy.typing.NDArray[numpy.int64]
 
    Vectors of all possible bit strings of length n.
 
 
-.. py:function:: gen_dnf(n, h_gen, d_size, c_max, rng, dtype)
+.. py:function:: gen_dnf[T](n, h_gen, d_size, c_max, rng, dtype)
                  gen_dnf(n: int, h_gen: int, d_size: int, c_max: int, rng: numpy.random.Generator) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
 
    Generate a random DNF formula F.
@@ -130,25 +130,25 @@ Module Contents
    :param dtype: Desired dtype of the generated D and C matrices.
 
 
-.. py:function:: n_parity_function(rng, n, add_noise, dtype)
+.. py:function:: n_parity_function[T](rng, n, add_noise, dtype)
                  n_parity_function(rng: numpy.random.Generator, n: int, add_noise: bool) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
 
    Create N-parity function.
 
 
-.. py:function:: random_function(rng, n, add_noise, dtype)
+.. py:function:: random_function[T](rng, n, add_noise, dtype)
                  random_function(rng: numpy.random.Generator, n: int, add_noise: bool) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
 
    Create random function.
 
 
-.. py:function:: random_dnf(rng, n, h_gen, d_size, c_max, add_noise, dtype)
+.. py:function:: random_dnf[T](rng, n, h_gen, d_size, c_max, add_noise, dtype)
                  random_dnf(rng: numpy.random.Generator, n: int, h_gen: int, d_size: int, c_max: int, add_noise: bool) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
 
    Create random DNF.
 
 
-.. py:function:: read_nth_dnf(fname, i, delimiter, dtype)
+.. py:function:: read_nth_dnf[T](fname, i, delimiter, dtype)
                  read_nth_dnf(fname: str | pathlib.Path, i: int, delimiter: str) -> tuple[numpy.typing.NDArray[numpy.int64], numpy.typing.NDArray[numpy.int64]]
 
    Read nth DNF from a CSV.

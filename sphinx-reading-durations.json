@@ -1,0 +1,17 @@
+{
+    "autoapi/index": 0.015,
+    "autoapi/mat_dnf/draw/index": 0.011,
+    "autoapi/mat_dnf/index": 0.002,
+    "autoapi/mat_dnf/jax/index": 0.002,
+    "autoapi/mat_dnf/jax/losses/index": 0.099,
+    "autoapi/mat_dnf/jax/models/index": 0.034,
+    "autoapi/mat_dnf/jax/optimizers/index": 0.013,
+    "autoapi/mat_dnf/learner/index": 0.086,
+    "autoapi/mat_dnf/numpy/index": 0.003,
+    "autoapi/mat_dnf/numpy/losses/index": 0.036,
+    "autoapi/mat_dnf/numpy/models/index": 0.036,
+    "autoapi/mat_dnf/numpy/optimizers/index": 0.019,
+    "autoapi/mat_dnf/simplifications/index": 0.023,
+    "autoapi/mat_dnf/utils/index": 0.04,
+    "index": 0.042
+}
