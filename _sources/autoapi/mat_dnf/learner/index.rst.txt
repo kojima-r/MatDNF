@@ -18,17 +18,25 @@ Functions
 
 .. autoapisummary::
 
+   mat_dnf.learner._resolve_device
+   mat_dnf.learner.sigmoid
    mat_dnf.learner.predict_dnf_c
 
 
 Module Contents
 ---------------
 
-.. py:method:: sigmoid(x)
-   :staticmethod:
+.. py:function:: _resolve_device(device_name)
+
+   Return (xp_module, rng) for the given device_name ('cpu' or 'gpu').
+
+   CuPy is imported lazily so the module remains usable on systems without it
+   when ``device_name == 'cpu'``.
 
 
-.. py:function:: predict_dnf_c(dnf, i1)
+.. py:function:: sigmoid(x)
+
+.. py:function:: predict_dnf_c(dnf, i1, xp=np)
 
 .. py:class:: MatDNFClassifier(h=1000, aa=4, er_max=0, alpha=0.1, max_itr=500, max_try=20, extra_itr=0, use_perturbation=True, use_sam=True, device_name='cpu')
 
@@ -100,9 +108,6 @@ Module Contents
 
 
 
-   .. py:attribute:: rng
-
-
    .. py:attribute:: n_feature
       :value: None
 
@@ -131,7 +136,7 @@ Module Contents
       :param y: Target variable (optional).
 
       :returns: Array module (numpy or cupy).
-                X: Prepared input features.
+                X: Prepared input features (transposed and on the active device).
                 y: Prepared target variable (optional).
       :rtype: xp
 
@@ -139,12 +144,7 @@ Module Contents
 
    .. py:method:: _post_process(out)
 
-      Post-processes the output data.
-
-      :param out: Output data.
-
-      :returns: Post-processed output data.
-      :rtype: out
+      Post-processes the output data, transferring back to host memory if on GPU.
 
 
 
@@ -364,9 +364,6 @@ Module Contents
 
 
    .. py:attribute:: learned_dnf_cls_
-
-
-   .. py:attribute:: rng
 
 
    .. py:attribute:: feature_names

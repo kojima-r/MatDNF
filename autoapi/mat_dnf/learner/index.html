@@ -354,7 +354,13 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.learner.predict_dnf_c" title="mat_dnf.learner.predict_dnf_c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_dnf_c</span></code></a>(dnf, i1)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.learner._resolve_device" title="mat_dnf.learner._resolve_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_resolve_device</span></code></a>(device_name)</p></td>
+<td><p>Return (xp_module, rng) for the given device_name ('cpu' or 'gpu').</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mat_dnf.learner.sigmoid" title="mat_dnf.learner.sigmoid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigmoid</span></code></a>(x)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mat_dnf.learner.predict_dnf_c" title="mat_dnf.learner.predict_dnf_c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_dnf_c</span></code></a>(dnf, i1[, xp])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -363,14 +369,22 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
-<dl class="py method">
+<dl class="py function">
+<dt class="sig sig-object py" id="mat_dnf.learner._resolve_device">
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.learner.</span></span><span class="sig-name descname"><span class="pre">_resolve_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.learner._resolve_device" title="Link to this definition">#</a></dt>
+<dd><p>Return (xp_module, rng) for the given device_name (‘cpu’ or ‘gpu’).</p>
+<p>CuPy is imported lazily so the module remains usable on systems without it
+when <code class="docutils literal notranslate"><span class="pre">device_name</span> <span class="pre">==</span> <span class="pre">'cpu'</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.learner.sigmoid">
-<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mat_dnf.learner.</span></span><span class="sig-name descname"><span class="pre">sigmoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.learner.sigmoid" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.learner.</span></span><span class="sig-name descname"><span class="pre">sigmoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.learner.sigmoid" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mat_dnf.learner.predict_dnf_c">
-<span class="sig-prename descclassname"><span class="pre">mat_dnf.learner.</span></span><span class="sig-name descname"><span class="pre">predict_dnf_c</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.learner.predict_dnf_c" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">mat_dnf.learner.</span></span><span class="sig-name descname"><span class="pre">predict_dnf_c</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dnf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.learner.predict_dnf_c" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
@@ -443,11 +457,6 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mat_dnf.learner.MatDNFClassifier.rng">
-<span class="sig-name descname"><span class="pre">rng</span></span><a class="headerlink" href="#mat_dnf.learner.MatDNFClassifier.rng" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="mat_dnf.learner.MatDNFClassifier.n_feature">
 <span class="sig-name descname"><span class="pre">n_feature</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mat_dnf.learner.MatDNFClassifier.n_feature" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
@@ -480,7 +489,7 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Array module (numpy or cupy).
-X: Prepared input features.
+X: Prepared input features (transposed and on the active device).
 y: Prepared target variable (optional).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -492,18 +501,7 @@ y: Prepared target variable (optional).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mat_dnf.learner.MatDNFClassifier._post_process">
 <span class="sig-name descname"><span class="pre">_post_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mat_dnf.learner.MatDNFClassifier._post_process" title="Link to this definition">#</a></dt>
-<dd><p>Post-processes the output data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>out</strong> – Output data.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Post-processed output data.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>out</p>
-</dd>
-</dl>
+<dd><p>Post-processes the output data, transferring back to host memory if on GPU.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -811,11 +809,6 @@ d_k_all: Merged D_k-part of the models.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mat_dnf.learner.DNFBooleanNet.rng">
-<span class="sig-name descname"><span class="pre">rng</span></span><a class="headerlink" href="#mat_dnf.learner.DNFBooleanNet.rng" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="mat_dnf.learner.DNFBooleanNet.feature_names">
 <span class="sig-name descname"><span class="pre">feature_names</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mat_dnf.learner.DNFBooleanNet.feature_names" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
@@ -931,6 +924,7 @@ d_k_all: Merged D_k-part of the models.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner._resolve_device"><code class="docutils literal notranslate"><span class="pre">_resolve_device()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.sigmoid"><code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.predict_dnf_c"><code class="docutils literal notranslate"><span class="pre">predict_dnf_c()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier</span></code></a><ul class="nav section-nav flex-column">
@@ -947,7 +941,6 @@ d_k_all: Merged D_k-part of the models.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier.model"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier.model</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier.learned_dnf"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier.learned_dnf</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier.learned_dnf_weak"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier.learned_dnf_weak</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier.rng"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier.rng</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier.n_feature"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier.n_feature</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier.feature_names"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier.feature_names</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.MatDNFClassifier.target_name"><code class="docutils literal notranslate"><span class="pre">MatDNFClassifier.target_name</span></code></a></li>
@@ -984,7 +977,6 @@ d_k_all: Merged D_k-part of the models.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.DNFBooleanNet.use_sam"><code class="docutils literal notranslate"><span class="pre">DNFBooleanNet.use_sam</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.DNFBooleanNet.device_name"><code class="docutils literal notranslate"><span class="pre">DNFBooleanNet.device_name</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.DNFBooleanNet.learned_dnf_cls_"><code class="docutils literal notranslate"><span class="pre">DNFBooleanNet.learned_dnf_cls_</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.DNFBooleanNet.rng"><code class="docutils literal notranslate"><span class="pre">DNFBooleanNet.rng</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.DNFBooleanNet.feature_names"><code class="docutils literal notranslate"><span class="pre">DNFBooleanNet.feature_names</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.DNFBooleanNet.fit"><code class="docutils literal notranslate"><span class="pre">DNFBooleanNet.fit()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mat_dnf.learner.DNFBooleanNet.get_learned_dnf"><code class="docutils literal notranslate"><span class="pre">DNFBooleanNet.get_learned_dnf()</span></code></a></li>
